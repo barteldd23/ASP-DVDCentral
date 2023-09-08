@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33717.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDB.DVDCentral.UI", "DDB.DVDCentral.UI\DDB.DVDCentral.UI.csproj", "{5CBF1C2A-C1D8-4F6F-A8E6-E7E54CA38778}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDB.DVDCentral", "DDB.DVDCentral.UI\DDB.DVDCentral.csproj", "{5CBF1C2A-C1D8-4F6F-A8E6-E7E54CA38778}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DVDCentral.BL.Models", "DVDCentral.BL.Models\DVDCentral.BL.Models.csproj", "{61A41048-B6D6-4F1A-A891-64D03EC99640}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDB.DVDCentral.BL.Models", "DVDCentral.BL.Models\DDB.DVDCentral.BL.Models.csproj", "{61A41048-B6D6-4F1A-A891-64D03EC99640}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DDB.DVDCentral.DB", "DDB.DVDCentral.DB\DDB.DVDCentral.DB.sqlproj", "{7CD5E1A3-B48C-4B4F-A074-698558FC416B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,12 @@ Global
 		{61A41048-B6D6-4F1A-A891-64D03EC99640}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61A41048-B6D6-4F1A-A891-64D03EC99640}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61A41048-B6D6-4F1A-A891-64D03EC99640}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CD5E1A3-B48C-4B4F-A074-698558FC416B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CD5E1A3-B48C-4B4F-A074-698558FC416B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CD5E1A3-B48C-4B4F-A074-698558FC416B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7CD5E1A3-B48C-4B4F-A074-698558FC416B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CD5E1A3-B48C-4B4F-A074-698558FC416B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CD5E1A3-B48C-4B4F-A074-698558FC416B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

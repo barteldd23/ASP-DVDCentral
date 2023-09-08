@@ -16,7 +16,7 @@ namespace DVDCentral.BL.Models
         public required int FormatId { get; set; }
         public required int DirectorId { get; set; }
         public required int InStkQty { get; set; }
-        public string ImagePath { get; set; }
+        public string? ImagePath { get; set; }
 
     }
 }
