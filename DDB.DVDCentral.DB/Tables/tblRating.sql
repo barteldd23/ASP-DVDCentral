@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[tblRating]
 (
 	[Id] INT NOT NULL PRIMARY KEY,
-	[Description] varchar(250) NOT NULL
+	[Description] varchar(10) NOT NULL
 )
