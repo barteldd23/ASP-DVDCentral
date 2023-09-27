@@ -6,10 +6,10 @@ using System.Diagnostics;
 
 namespace DDB.DVDCentral.BL
 {
-    public static class GenreManager
+    public static class DirectorManager
     {
         
-        public static int Insert(Genre genre,
+        public static int Insert(Director director,
                                  bool rollback = false) 
         {
             
@@ -22,13 +22,14 @@ namespace DDB.DVDCentral.BL
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblGenre entry = new tblGenre();
-                    entry.Id = dc.tblGenres.Any() ? dc.tblGenres.Max(e => e.Id) + 1 : 1;
-                    entry.Description = genre.Description;
+                    tblDirector entry = new tblDirector();
+                    entry.Id = dc.tblDirectors.Any() ? dc.tblDirectors.Max(e => e.Id) + 1 : 1;
+                    entry.FirstName = director.FirstName;
+                    entry.LastName = director.LastName;
 
-                    genre.Id = entry.Id;
+                    director.Id = entry.Id;
 
-                    dc.tblGenres.Add(entry);
+                    dc.tblDirectors.Add(entry);
 
                     results = dc.SaveChanges();
 
@@ -44,7 +45,7 @@ namespace DDB.DVDCentral.BL
             }  
         }
 
-        public static int Update(Genre genre,
+        public static int Update(Director director,
                                  bool rollback)
         {
             try
@@ -55,11 +56,12 @@ namespace DDB.DVDCentral.BL
                     IDbContextTransaction transaction = null;
                     if(rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblGenre entity = dc.tblGenres.Where(e => e.Id == genre.Id).FirstOrDefault();
+                    tblDirector entity = dc.tblDirectors.Where(e => e.Id == director.Id).FirstOrDefault();
 
                     if (entity != null)
                     {
-                        entity.Description = genre.Description;
+                        entity.FirstName = director.FirstName;
+                        entity.LastName = director.LastName;
                         results = dc.SaveChanges();
                         if (rollback) transaction.Rollback();
                     }
@@ -91,10 +93,10 @@ namespace DDB.DVDCentral.BL
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblGenre entity = dc.tblGenres.Where(e => e.Id==Id).FirstOrDefault();
+                    tblDirector entity = dc.tblDirectors.Where(e => e.Id==Id).FirstOrDefault();
                     if (entity != null)
                     {
-                        dc.tblGenres.Remove(entity);
+                        dc.tblDirectors.Remove(entity);
                         results = dc.SaveChanges();
                     }
                     else
@@ -114,20 +116,21 @@ namespace DDB.DVDCentral.BL
       
         }
 
-        public static Genre LoadById(int id)
+        public static Director LoadById(int id)
         {
             try
             {
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    tblGenre entity = dc.tblGenres.Where(e => e.Id == id).FirstOrDefault();
+                    tblDirector entity = dc.tblDirectors.Where(e => e.Id == id).FirstOrDefault();
 
                     if (entity != null)
                     {
-                        return new Genre
+                        return new Director
                         {
                             Id = entity.Id,
-                            Description = entity.Description
+                            FirstName = entity.FirstName,
+                            LastName = entity.LastName
                         };
                     }
                     else
@@ -143,23 +146,25 @@ namespace DDB.DVDCentral.BL
             }
         }
 
-        public static List<Genre> Load()
+        public static List<Director> Load()
         {
-            List<Genre> list = new List<Genre>();
+            List<Director> list = new List<Director>();
 
             using (DVDCentralEntities dc = new DVDCentralEntities())
             {
-                (from e in dc.tblGenres
+                (from e in dc.tblDirectors
                  select new
                  {
                      e.Id,
-                     e.Description
+                     e.FirstName,
+                     e.LastName
                  })
                  .ToList()
-                 .ForEach(genre => list.Add(new Genre
+                 .ForEach(director => list.Add(new Director
                  {
-                     Id = genre.Id,
-                     Description = genre.Description
+                     Id = director.Id,
+                     FirstName = director.FirstName,
+                     LastName = director.LastName
                  }));
             }
 

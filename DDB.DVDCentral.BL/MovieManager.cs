@@ -6,10 +6,10 @@ using System.Diagnostics;
 
 namespace DDB.DVDCentral.BL
 {
-    public static class GenreManager
+    public static class MovieManager
     {
         
-        public static int Insert(Genre genre,
+        public static int Insert(Movie movie,
                                  bool rollback = false) 
         {
             
@@ -22,13 +22,20 @@ namespace DDB.DVDCentral.BL
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblGenre entry = new tblGenre();
-                    entry.Id = dc.tblGenres.Any() ? dc.tblGenres.Max(e => e.Id) + 1 : 1;
-                    entry.Description = genre.Description;
+                    tblMovie entry = new tblMovie();
+                    entry.Id = dc.tblMovies.Any() ? dc.tblMovies.Max(e => e.Id) + 1 : 1;
+                    entry.Description = movie.Description;
+                    entry.Title = movie.Title;
+                    entry.Cost = movie.Cost;
+                    entry.RatingId = movie.RatingId;
+                    entry.FormatId = movie.FormatId;
+                    entry.DirectorId = movie.DirectorId;
+                    entry.InStkQty = movie.InStkQty;
+                    entry.ImagePath = movie.ImagePath;
 
-                    genre.Id = entry.Id;
+                    movie.Id = entry.Id;
 
-                    dc.tblGenres.Add(entry);
+                    dc.tblMovies.Add(entry);
 
                     results = dc.SaveChanges();
 
@@ -44,7 +51,7 @@ namespace DDB.DVDCentral.BL
             }  
         }
 
-        public static int Update(Genre genre,
+        public static int Update(Movie movie,
                                  bool rollback)
         {
             try
@@ -55,11 +62,18 @@ namespace DDB.DVDCentral.BL
                     IDbContextTransaction transaction = null;
                     if(rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblGenre entity = dc.tblGenres.Where(e => e.Id == genre.Id).FirstOrDefault();
+                    tblMovie entry = dc.tblMovies.Where(e => e.Id == movie.Id).FirstOrDefault();
 
-                    if (entity != null)
+                    if (entry != null)
                     {
-                        entity.Description = genre.Description;
+                        entry.Description = movie.Description;
+                        entry.Title = movie.Title;
+                        entry.Cost = movie.Cost;
+                        entry.RatingId = movie.RatingId;
+                        entry.FormatId = movie.FormatId;
+                        entry.DirectorId = movie.DirectorId;
+                        entry.InStkQty = movie.InStkQty;
+                        entry.ImagePath = movie.ImagePath;
                         results = dc.SaveChanges();
                         if (rollback) transaction.Rollback();
                     }
@@ -91,10 +105,10 @@ namespace DDB.DVDCentral.BL
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblGenre entity = dc.tblGenres.Where(e => e.Id==Id).FirstOrDefault();
+                    tblMovie entity = dc.tblMovies.Where(e => e.Id == Id).FirstOrDefault();
                     if (entity != null)
                     {
-                        dc.tblGenres.Remove(entity);
+                        dc.tblMovies.Remove(entity);
                         results = dc.SaveChanges();
                     }
                     else
@@ -114,20 +128,27 @@ namespace DDB.DVDCentral.BL
       
         }
 
-        public static Genre LoadById(int id)
+        public static Movie LoadById(int id)
         {
             try
             {
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    tblGenre entity = dc.tblGenres.Where(e => e.Id == id).FirstOrDefault();
+                    tblMovie entity = dc.tblMovies.Where(e => e.Id == id).FirstOrDefault();
 
                     if (entity != null)
                     {
-                        return new Genre
+                        return new Movie
                         {
                             Id = entity.Id,
-                            Description = entity.Description
+                            Title = entity.Title,
+                            Description = entity.Description,
+                            Cost = entity.Cost,
+                            RatingId = entity.RatingId,
+                            FormatId = entity.FormatId,
+                            DirectorId = entity.DirectorId,
+                            InStkQty = entity.InStkQty,
+                            ImagePath = entity.ImagePath
                         };
                     }
                     else
@@ -143,23 +164,37 @@ namespace DDB.DVDCentral.BL
             }
         }
 
-        public static List<Genre> Load()
+        public static List<Movie> Load()
         {
-            List<Genre> list = new List<Genre>();
+            List<Movie> list = new List<Movie>();
 
             using (DVDCentralEntities dc = new DVDCentralEntities())
             {
-                (from e in dc.tblGenres
+                (from e in dc.tblMovies
                  select new
                  {
                      e.Id,
-                     e.Description
+                     e.Title,
+                     e.Description,
+                     e.Cost,
+                     e.RatingId,
+                     e.FormatId,
+                     e.DirectorId, 
+                     e.InStkQty,
+                     e.ImagePath
                  })
                  .ToList()
-                 .ForEach(genre => list.Add(new Genre
+                 .ForEach(movie => list.Add(new Movie
                  {
-                     Id = genre.Id,
-                     Description = genre.Description
+                     Id = movie.Id,
+                     Title = movie.Title,
+                     Description = movie.Description,
+                     Cost = movie.Cost,
+                     RatingId = movie.RatingId,
+                     FormatId = movie.FormatId,
+                     DirectorId = movie.DirectorId,
+                     InStkQty = movie.InStkQty,
+                     ImagePath = movie.ImagePath
                  }));
             }
 

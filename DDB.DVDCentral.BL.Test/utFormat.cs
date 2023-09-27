@@ -3,40 +3,40 @@ using DVDCentral.BL.Models;
 namespace DDB.DVDCentral.BL.Test
 {
     [TestClass]
-    public class utGenre
+    public class utFormat
     {
         [TestMethod]
         public void LoadTest()
         {
-            List<Genre> list = GenreManager.Load();
-            Assert.AreEqual(4, list.Count);
+            List<Format> list = FormatManager.Load();
+            Assert.AreEqual(3, list.Count);
         }
 
         [TestMethod]
         public void InsertTest()
         {
-            Genre genre = new Genre
+            Format format = new Format
             {
                 Description = "Test",
                 Id = -99
             };
-            int result = GenreManager.Insert(genre, true);
+            int result = FormatManager.Insert(format, true);
             Assert.AreEqual(1, result);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
-            int result = GenreManager.Delete(1, true);
+            int result = FormatManager.Delete(1, true);
             Assert.AreEqual(1, result);
         }
 
         [TestMethod]
         public void UpdateTest()
         {
-            Genre genre = GenreManager.LoadById(2);
-            genre.Description = "Test";
-            int result = GenreManager.Update(genre, true);
+            Format format = FormatManager.LoadById(1);
+            format.Description = "Test";
+            int result = FormatManager.Update(format, true);
             Assert.AreEqual(1, result);
         }
     }

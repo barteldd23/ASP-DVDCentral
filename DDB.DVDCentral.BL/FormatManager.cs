@@ -6,10 +6,10 @@ using System.Diagnostics;
 
 namespace DDB.DVDCentral.BL
 {
-    public static class GenreManager
+    public static class FormatManager
     {
         
-        public static int Insert(Genre genre,
+        public static int Insert(Format format,
                                  bool rollback = false) 
         {
             
@@ -22,13 +22,13 @@ namespace DDB.DVDCentral.BL
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblGenre entry = new tblGenre();
-                    entry.Id = dc.tblGenres.Any() ? dc.tblGenres.Max(e => e.Id) + 1 : 1;
-                    entry.Description = genre.Description;
+                    tblFormat entry = new tblFormat();
+                    entry.Id = dc.tblFormats.Any() ? dc.tblFormats.Max(e => e.Id) + 1 : 1;
+                    entry.Description = format.Description;
 
-                    genre.Id = entry.Id;
+                    format.Id = entry.Id;
 
-                    dc.tblGenres.Add(entry);
+                    dc.tblFormats.Add(entry);
 
                     results = dc.SaveChanges();
 
@@ -44,7 +44,7 @@ namespace DDB.DVDCentral.BL
             }  
         }
 
-        public static int Update(Genre genre,
+        public static int Update(Format format,
                                  bool rollback)
         {
             try
@@ -55,11 +55,11 @@ namespace DDB.DVDCentral.BL
                     IDbContextTransaction transaction = null;
                     if(rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblGenre entity = dc.tblGenres.Where(e => e.Id == genre.Id).FirstOrDefault();
+                    tblFormat entity = dc.tblFormats.Where(e => e.Id == format.Id).FirstOrDefault();
 
                     if (entity != null)
                     {
-                        entity.Description = genre.Description;
+                        entity.Description = format.Description;
                         results = dc.SaveChanges();
                         if (rollback) transaction.Rollback();
                     }
@@ -91,10 +91,10 @@ namespace DDB.DVDCentral.BL
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblGenre entity = dc.tblGenres.Where(e => e.Id==Id).FirstOrDefault();
+                    tblFormat entity = dc.tblFormats.Where(e => e.Id==Id).FirstOrDefault();
                     if (entity != null)
                     {
-                        dc.tblGenres.Remove(entity);
+                        dc.tblFormats.Remove(entity);
                         results = dc.SaveChanges();
                     }
                     else
@@ -114,17 +114,17 @@ namespace DDB.DVDCentral.BL
       
         }
 
-        public static Genre LoadById(int id)
+        public static Format LoadById(int id)
         {
             try
             {
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    tblGenre entity = dc.tblGenres.Where(e => e.Id == id).FirstOrDefault();
+                    tblFormat entity = dc.tblFormats.Where(e => e.Id == id).FirstOrDefault();
 
                     if (entity != null)
                     {
-                        return new Genre
+                        return new Format
                         {
                             Id = entity.Id,
                             Description = entity.Description
@@ -143,23 +143,23 @@ namespace DDB.DVDCentral.BL
             }
         }
 
-        public static List<Genre> Load()
+        public static List<Format> Load()
         {
-            List<Genre> list = new List<Genre>();
+            List<Format> list = new List<Format>();
 
             using (DVDCentralEntities dc = new DVDCentralEntities())
             {
-                (from e in dc.tblGenres
+                (from e in dc.tblFormats
                  select new
                  {
                      e.Id,
                      e.Description
                  })
                  .ToList()
-                 .ForEach(genre => list.Add(new Genre
+                 .ForEach(format => list.Add(new Format
                  {
-                     Id = genre.Id,
-                     Description = genre.Description
+                     Id = format.Id,
+                     Description = format.Description
                  }));
             }
 

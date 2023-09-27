@@ -6,10 +6,10 @@ using System.Diagnostics;
 
 namespace DDB.DVDCentral.BL
 {
-    public static class GenreManager
+    public static class RatingManager
     {
         
-        public static int Insert(Genre genre,
+        public static int Insert(Rating rating,
                                  bool rollback = false) 
         {
             
@@ -22,13 +22,13 @@ namespace DDB.DVDCentral.BL
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblGenre entry = new tblGenre();
-                    entry.Id = dc.tblGenres.Any() ? dc.tblGenres.Max(e => e.Id) + 1 : 1;
-                    entry.Description = genre.Description;
+                    tblRating entry = new tblRating();
+                    entry.Id = dc.tblRatings.Any() ? dc.tblRatings.Max(e => e.Id) + 1 : 1;
+                    entry.Description = rating.Description;
 
-                    genre.Id = entry.Id;
+                    rating.Id = entry.Id;
 
-                    dc.tblGenres.Add(entry);
+                    dc.tblRatings.Add(entry);
 
                     results = dc.SaveChanges();
 
@@ -44,7 +44,7 @@ namespace DDB.DVDCentral.BL
             }  
         }
 
-        public static int Update(Genre genre,
+        public static int Update(Rating rating,
                                  bool rollback)
         {
             try
@@ -55,11 +55,11 @@ namespace DDB.DVDCentral.BL
                     IDbContextTransaction transaction = null;
                     if(rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblGenre entity = dc.tblGenres.Where(e => e.Id == genre.Id).FirstOrDefault();
+                    tblRating entity = dc.tblRatings.Where(e => e.Id == rating.Id).FirstOrDefault();
 
                     if (entity != null)
                     {
-                        entity.Description = genre.Description;
+                        entity.Description = rating.Description;
                         results = dc.SaveChanges();
                         if (rollback) transaction.Rollback();
                     }
@@ -91,10 +91,10 @@ namespace DDB.DVDCentral.BL
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblGenre entity = dc.tblGenres.Where(e => e.Id==Id).FirstOrDefault();
+                    tblRating entity = dc.tblRatings.Where(e => e.Id==Id).FirstOrDefault();
                     if (entity != null)
                     {
-                        dc.tblGenres.Remove(entity);
+                        dc.tblRatings.Remove(entity);
                         results = dc.SaveChanges();
                     }
                     else
@@ -114,17 +114,17 @@ namespace DDB.DVDCentral.BL
       
         }
 
-        public static Genre LoadById(int id)
+        public static Rating LoadById(int id)
         {
             try
             {
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    tblGenre entity = dc.tblGenres.Where(e => e.Id == id).FirstOrDefault();
+                    tblRating entity = dc.tblRatings.Where(e => e.Id == id).FirstOrDefault();
 
                     if (entity != null)
                     {
-                        return new Genre
+                        return new Rating
                         {
                             Id = entity.Id,
                             Description = entity.Description
@@ -143,23 +143,23 @@ namespace DDB.DVDCentral.BL
             }
         }
 
-        public static List<Genre> Load()
+        public static List<Rating> Load()
         {
-            List<Genre> list = new List<Genre>();
+            List<Rating> list = new List<Rating>();
 
             using (DVDCentralEntities dc = new DVDCentralEntities())
             {
-                (from e in dc.tblGenres
+                (from e in dc.tblRatings
                  select new
                  {
                      e.Id,
                      e.Description
                  })
                  .ToList()
-                 .ForEach(genre => list.Add(new Genre
+                 .ForEach(rating => list.Add(new Rating
                  {
-                     Id = genre.Id,
-                     Description = genre.Description
+                     Id = rating.Id,
+                     Description = rating.Description
                  }));
             }
 
