@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace DDB.DVDCentral.PL;
+
+public partial class tblOrderItem
+{
+    public int Id { get; set; }
+
+    public int OrderId { get; set; }
+
+    public int MovieId { get; set; }
+
+    public int Quantity { get; set; }
+
+    public decimal Cost { get; set; }
+}
