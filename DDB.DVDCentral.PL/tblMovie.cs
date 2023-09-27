@@ -11,7 +11,7 @@ public partial class tblMovie
 
     public string Description { get; set; } = null!;
 
-    public decimal Cost { get; set; }
+    public double Cost { get; set; }
 
     public int RatingId { get; set; }
 

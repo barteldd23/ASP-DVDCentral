@@ -17,7 +17,7 @@ public partial class tblCustomer
 
     public string State { get; set; } = null!;
 
-    public string Zip { get; set; } = null!;
+    public string ZIP { get; set; } = null!;
 
     public string Phone { get; set; } = null!;
 

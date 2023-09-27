@@ -91,4 +91,7 @@
     <None Include="PostDeploy\DefaultData\Users.sql" />
     <None Include="remote.publish.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="DDB.DVDCentral.DB.refactorlog" />
+  </ItemGroup>
 </Project>

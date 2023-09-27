@@ -13,5 +13,5 @@ public partial class tblOrderItem
 
     public int Quantity { get; set; }
 
-    public decimal Cost { get; set; }
+    public double Cost { get; set; }
 }

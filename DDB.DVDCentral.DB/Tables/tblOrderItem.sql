@@ -4,5 +4,5 @@
 	[OrderId] INT NOT NULL,
 	[MovieId] INT NOT NULL,
 	[Quantity] INT NOT NULL,
-	[Cost] MONEY NOT NULL
+	[Cost] FLOAT NOT NULL
 )
