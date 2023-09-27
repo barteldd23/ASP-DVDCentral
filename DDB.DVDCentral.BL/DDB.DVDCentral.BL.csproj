@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DDB.DVDCentral.PL\DDB.DVDCentral.PL.csproj" />
+    <ProjectReference Include="..\DVDCentral.BL.Models\DDB.DVDCentral.BL.Models.csproj" />
+  </ItemGroup>
+
 </Project>
