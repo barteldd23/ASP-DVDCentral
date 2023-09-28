@@ -3,24 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33717.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDB.DVDCentral", "DDB.DVDCentral.UI\DDB.DVDCentral.csproj", "{5CBF1C2A-C1D8-4F6F-A8E6-E7E54CA38778}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDB.DVDCentral.BL.Models", "DVDCentral.BL.Models\DDB.DVDCentral.BL.Models.csproj", "{61A41048-B6D6-4F1A-A891-64D03EC99640}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DDB.DVDCentral.DB", "DDB.DVDCentral.DB\DDB.DVDCentral.DB.sqlproj", "{7CD5E1A3-B48C-4B4F-A074-698558FC416B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDB.DVDCentral.PL", "DDB.DVDCentral.PL\DDB.DVDCentral.PL.csproj", "{46C070CB-19EA-4F0F-8559-A719C4B38FE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDB.DVDCentral.PL", "DDB.DVDCentral.PL\DDB.DVDCentral.PL.csproj", "{46C070CB-19EA-4F0F-8559-A719C4B38FE9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E5C92876-3FBA-46DC-9D10-69BAA8CA7013}"
 	ProjectSection(SolutionItems) = preProject
 		TextFile.txt = TextFile.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDB.DVDCentral.BL", "DDB.DVDCentral.BL\DDB.DVDCentral.BL.csproj", "{FCC40B10-4A3E-45BE-9350-DFAED86AC223}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDB.DVDCentral.BL", "DDB.DVDCentral.BL\DDB.DVDCentral.BL.csproj", "{FCC40B10-4A3E-45BE-9350-DFAED86AC223}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDB.DVDCentral.PL.Test", "DDB.DVDCentral.PL.Test\DDB.DVDCentral.PL.Test.csproj", "{EE09B1E2-9699-4C39-8859-2FE511B71012}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDB.DVDCentral.PL.Test", "DDB.DVDCentral.PL.Test\DDB.DVDCentral.PL.Test.csproj", "{EE09B1E2-9699-4C39-8859-2FE511B71012}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDB.DVDCentral.BL.Test", "DDB.DVDCentral.BL.Test\DDB.DVDCentral.BL.Test.csproj", "{7ABDE50F-18D2-40FE-8015-FFEC0EF40FCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDB.DVDCentral.BL.Test", "DDB.DVDCentral.BL.Test\DDB.DVDCentral.BL.Test.csproj", "{7ABDE50F-18D2-40FE-8015-FFEC0EF40FCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,10 +26,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5CBF1C2A-C1D8-4F6F-A8E6-E7E54CA38778}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5CBF1C2A-C1D8-4F6F-A8E6-E7E54CA38778}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5CBF1C2A-C1D8-4F6F-A8E6-E7E54CA38778}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5CBF1C2A-C1D8-4F6F-A8E6-E7E54CA38778}.Release|Any CPU.Build.0 = Release|Any CPU
 		{61A41048-B6D6-4F1A-A891-64D03EC99640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{61A41048-B6D6-4F1A-A891-64D03EC99640}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61A41048-B6D6-4F1A-A891-64D03EC99640}.Release|Any CPU.ActiveCfg = Release|Any CPU
