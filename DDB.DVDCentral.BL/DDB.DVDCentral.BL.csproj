@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DDB.DVDCentral.PL\DDB.DVDCentral.PL.csproj" />
+    <ProjectReference Include="..\DDB.DVDCentral.UI\DDB.DVDCentral.UI.csproj" />
     <ProjectReference Include="..\DVDCentral.BL.Models\DDB.DVDCentral.BL.Models.csproj" />
   </ItemGroup>
 
