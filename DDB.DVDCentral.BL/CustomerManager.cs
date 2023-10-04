@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace DDB.DVDCentral.BL
 {
-    public static class OrderItemManager
+    public static class CustomerManager
     {
-        public static int Insert(OrderItem orderItem,
+        public static int Insert(Customer customer,
                              bool rollback = false)
         {
             int results = 0;
@@ -24,16 +24,20 @@ namespace DDB.DVDCentral.BL
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblOrderItem entity = new tblOrderItem();
-                    entity.Id = dc.tblOrderItems.Any() ? dc.tblOrderItems.Max(e => e.Id) + 1 : 1;
-                    entity.OrderId = orderItem.OrderId;
-                    entity.MovieId = orderItem.MovieId;
-                    entity.Quantity = orderItem.Quantity;
-                    entity.Cost = orderItem.Cost;
+                    tblCustomer entity = new tblCustomer();
+                    entity.Id = dc.tblCustomers.Any() ? dc.tblCustomers.Max(e => e.Id) + 1 : 1;
+                    entity.FirstName = customer.FirstName;
+                    entity.LastName = customer.LastName;
+                    entity.Address = customer.Address;
+                    entity.City = customer.City;
+                    entity.State = customer.State;
+                    entity.ZIP = customer.ZIP;
+                    entity.Phone = customer.Phone;
+                    entity.UserId = customer.UserId;
 
-                    orderItem.Id = entity.Id;
+                    customer.Id = entity.Id;
 
-                    dc.tblOrderItems.Add(entity);
+                    dc.tblCustomers.Add(entity);
                     results = dc.SaveChanges();
 
                     if (rollback) transaction.Rollback();
@@ -48,7 +52,7 @@ namespace DDB.DVDCentral.BL
             } 
         }
 
-        public static int Update(OrderItem orderItem,
+        public static int Update(Customer customer,
                                  bool rollback=false)
         {
             int results = 0;
@@ -58,13 +62,17 @@ namespace DDB.DVDCentral.BL
                 {
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
-                    tblOrderItem entity = dc.tblOrderItems.Where(e => e.Id == orderItem.Id).FirstOrDefault();
+                    tblCustomer entity = dc.tblCustomers.Where(e => e.Id == customer.Id).FirstOrDefault();
                     if (entity != null)
                     {
-                        entity.OrderId = orderItem.OrderId;
-                        entity.MovieId = orderItem.MovieId;
-                        entity.Quantity = orderItem.Quantity;
-                        entity.Cost = orderItem.Cost;
+                        entity.FirstName = customer.FirstName;
+                        entity.LastName = customer.LastName;
+                        entity.Address = customer.Address;
+                        entity.City = customer.City;
+                        entity.State = customer.State;
+                        entity.ZIP = customer.ZIP;
+                        entity.Phone = customer.Phone;
+                        entity.UserId = customer.UserId;
 
                         results = dc.SaveChanges();
                         if (rollback) transaction.Rollback();
@@ -96,10 +104,10 @@ namespace DDB.DVDCentral.BL
                     IDbContextTransaction transaction = null;
                     if(rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblOrderItem entity = dc.tblOrderItems.Where(e =>e.Id == id).FirstOrDefault();
+                    tblCustomer entity = dc.tblCustomers.Where(e =>e.Id == id).FirstOrDefault();
                     if (entity != null)
                     {
-                        dc.tblOrderItems.Remove(entity);
+                        dc.tblCustomers.Remove(entity);
                         results = dc.SaveChanges();
                         
                     }
@@ -119,25 +127,29 @@ namespace DDB.DVDCentral.BL
             }
         }
 
-        public static OrderItem LoadById(int id)
+        public static Customer LoadById(int id)
         {
             try
             {
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    tblOrderItem entity = dc.tblOrderItems.Where(e => e.Id == id).FirstOrDefault();
+                    tblCustomer entity = dc.tblCustomers.Where(e => e.Id == id).FirstOrDefault();
                     if (entity != null)
                     {
-                        OrderItem orderItem = new OrderItem
+                        Customer customer = new Customer
                         {
                             Id = entity.Id,
-                            OrderId = entity.OrderId,
-                            MovieId = entity.MovieId,
-                            Quantity = entity.Quantity,
-                            Cost = entity.Cost
+                            FirstName = entity.FirstName,
+                            LastName = entity.LastName,
+                            Address = entity.Address,
+                            City = entity.City,
+                            State = entity.State,
+                            ZIP = entity.ZIP,
+                            Phone = entity.Phone,
+                            UserId = entity.UserId
                         };
 
-                        return orderItem;
+                        return customer;
                     }
                     else
                     {
@@ -154,28 +166,36 @@ namespace DDB.DVDCentral.BL
             
         }
 
-        public static List<OrderItem> Load()
+        public static List<Customer> Load()
         {
-            List<OrderItem> list = new List<OrderItem>();
+            List<Customer> list = new List<Customer>();
 
             using (DVDCentralEntities dc = new DVDCentralEntities())
             {
-                (from e in dc.tblOrderItems
+                (from e in dc.tblCustomers
                  select new
                  {
                      e.Id,
-                     e.OrderId,
-                     e.MovieId,
-                     e.Quantity,
-                     e.Cost
+                     e.FirstName,
+                     e.LastName,
+                     e.Address,
+                     e.City,
+                     e.State,
+                     e.ZIP,
+                     e.Phone,
+                     e.UserId
                  }).ToList()
-                 .ForEach( orderItem => list.Add(new OrderItem
+                 .ForEach( customer => list.Add(new Customer
                  {
-                     Id = orderItem.Id,
-                     OrderId = orderItem.OrderId,
-                     MovieId =orderItem.MovieId,
-                     Quantity = orderItem.Quantity,
-                     Cost = orderItem.Cost
+                     Id = customer.Id,
+                     FirstName = customer.FirstName,
+                     LastName = customer.LastName,
+                     Address = customer.Address,
+                     City = customer.City,
+                     State = customer.State,
+                     ZIP = customer.ZIP,
+                     Phone = customer.Phone,
+                     UserId = customer.UserId
                  }));
             }
             return list;

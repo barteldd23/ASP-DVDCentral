@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace DDB.DVDCentral.BL
 {
-    public static class OrderItemManager
+    public static class OrderManager
     {
-        public static int Insert(OrderItem orderItem,
+        public static int Insert(Order order,
                              bool rollback = false)
         {
             int results = 0;
@@ -24,16 +24,16 @@ namespace DDB.DVDCentral.BL
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblOrderItem entity = new tblOrderItem();
-                    entity.Id = dc.tblOrderItems.Any() ? dc.tblOrderItems.Max(e => e.Id) + 1 : 1;
-                    entity.OrderId = orderItem.OrderId;
-                    entity.MovieId = orderItem.MovieId;
-                    entity.Quantity = orderItem.Quantity;
-                    entity.Cost = orderItem.Cost;
+                    tblOrder entity = new tblOrder();
+                    entity.Id = dc.tblOrders.Any() ? dc.tblOrders.Max(e => e.Id) + 1 : 1;
+                    entity.CustomerId = order.CustomerId;
+                    entity.OrderDate = order.OrderDate;
+                    entity.UserId = order.UserId;
+                    entity.ShipDate = order.ShipDate;
 
-                    orderItem.Id = entity.Id;
+                    order.Id = entity.Id;
 
-                    dc.tblOrderItems.Add(entity);
+                    dc.tblOrders.Add(entity);
                     results = dc.SaveChanges();
 
                     if (rollback) transaction.Rollback();
@@ -48,7 +48,7 @@ namespace DDB.DVDCentral.BL
             } 
         }
 
-        public static int Update(OrderItem orderItem,
+        public static int Update(Order order,
                                  bool rollback=false)
         {
             int results = 0;
@@ -58,13 +58,13 @@ namespace DDB.DVDCentral.BL
                 {
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
-                    tblOrderItem entity = dc.tblOrderItems.Where(e => e.Id == orderItem.Id).FirstOrDefault();
+                    tblOrder entity = dc.tblOrders.Where(e => e.Id == order.Id).FirstOrDefault();
                     if (entity != null)
                     {
-                        entity.OrderId = orderItem.OrderId;
-                        entity.MovieId = orderItem.MovieId;
-                        entity.Quantity = orderItem.Quantity;
-                        entity.Cost = orderItem.Cost;
+                        entity.CustomerId = order.CustomerId;
+                        entity.OrderDate = order.OrderDate;
+                        entity.UserId = order.UserId;
+                        entity.ShipDate = order.ShipDate;
 
                         results = dc.SaveChanges();
                         if (rollback) transaction.Rollback();
@@ -96,10 +96,10 @@ namespace DDB.DVDCentral.BL
                     IDbContextTransaction transaction = null;
                     if(rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblOrderItem entity = dc.tblOrderItems.Where(e =>e.Id == id).FirstOrDefault();
+                    tblOrder entity = dc.tblOrders.Where(e =>e.Id == id).FirstOrDefault();
                     if (entity != null)
                     {
-                        dc.tblOrderItems.Remove(entity);
+                        dc.tblOrders.Remove(entity);
                         results = dc.SaveChanges();
                         
                     }
@@ -119,25 +119,25 @@ namespace DDB.DVDCentral.BL
             }
         }
 
-        public static OrderItem LoadById(int id)
+        public static Order LoadById(int id)
         {
             try
             {
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    tblOrderItem entity = dc.tblOrderItems.Where(e => e.Id == id).FirstOrDefault();
+                    tblOrder entity = dc.tblOrders.Where(e => e.Id == id).FirstOrDefault();
                     if (entity != null)
                     {
-                        OrderItem orderItem = new OrderItem
+                        Order order = new Order
                         {
                             Id = entity.Id,
-                            OrderId = entity.OrderId,
-                            MovieId = entity.MovieId,
-                            Quantity = entity.Quantity,
-                            Cost = entity.Cost
+                            CustomerId = entity.CustomerId,
+                            OrderDate = entity.OrderDate,
+                            UserId = entity.UserId,
+                            ShipDate = entity.ShipDate
                         };
 
-                        return orderItem;
+                        return order;
                     }
                     else
                     {
@@ -154,28 +154,28 @@ namespace DDB.DVDCentral.BL
             
         }
 
-        public static List<OrderItem> Load()
+        public static List<Order> Load()
         {
-            List<OrderItem> list = new List<OrderItem>();
+            List<Order> list = new List<Order>();
 
             using (DVDCentralEntities dc = new DVDCentralEntities())
             {
-                (from e in dc.tblOrderItems
+                (from e in dc.tblOrders
                  select new
                  {
                      e.Id,
-                     e.OrderId,
-                     e.MovieId,
-                     e.Quantity,
-                     e.Cost
+                     e.CustomerId,
+                     e.OrderDate,
+                     e.UserId,
+                     e.ShipDate
                  }).ToList()
-                 .ForEach( orderItem => list.Add(new OrderItem
+                 .ForEach( order => list.Add(new Order
                  {
-                     Id = orderItem.Id,
-                     OrderId = orderItem.OrderId,
-                     MovieId =orderItem.MovieId,
-                     Quantity = orderItem.Quantity,
-                     Cost = orderItem.Cost
+                     Id = order.Id,
+                     CustomerId = order.CustomerId,
+                     OrderDate =order.OrderDate,
+                     UserId = order.UserId,
+                     ShipDate = order.ShipDate
                  }));
             }
             return list;
