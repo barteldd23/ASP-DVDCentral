@@ -13,5 +13,6 @@ namespace DVDCentral.BL.Models
         public required DateTime OrderDate { get; set; }
         public required int UserId { get; set; }
         public required DateTime ShipDate { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
     }
 }

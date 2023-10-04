@@ -12,8 +12,6 @@ namespace DDB.DVDCentral.BL
         public static int Insert(Rating rating,
                                  bool rollback = false) 
         {
-            
-
             try
             {
                 int results = 0;
