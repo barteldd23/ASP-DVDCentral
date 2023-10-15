@@ -45,7 +45,7 @@ namespace DDB.DVDCentral.BL
         }
 
         public static int Update(Genre genre,
-                                 bool rollback)
+                                 bool rollback = false)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace DDB.DVDCentral.BL
         }
 
         public static int Delete(int Id,
-                                 bool rollback)
+                                 bool rollback = false)
         {
             try
             {

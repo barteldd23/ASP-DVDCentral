@@ -3,35 +3,35 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DDB.DVDCentral.UI.Controllers
 {
-    public class GenreController : Controller
+    public class DirectorController : Controller
     {
-        // GET: GenreController
+        // GET: DirectorController
         public ActionResult Index()
         {
-            return View(GenreManager.Load());
+            return View(DirectorManager.Load());
         }
 
-        // GET: GenreController/Details/5
+        // GET: DirectorController/Details/5
         public ActionResult Details(int id)
         {
-            Genre genre = GenreManager.LoadById(id);
-            return View(genre);
+            Director director = DirectorManager.LoadById(id);
+            return View(director);
         }
 
-        // GET: GenreController/Create
+        // GET: DirectorController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: GenreController/Create
+        // POST: DirectorController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Genre genre)
+        public ActionResult Create(Director director)
         {
             try
             {
-                int result = GenreManager.Insert(genre);
+                int result = DirectorManager.Insert(director);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -40,21 +40,21 @@ namespace DDB.DVDCentral.UI.Controllers
             }
         }
 
-        // GET: GenreController/Edit/5
+        // GET: DirectorController/Edit/5
         public ActionResult Edit(int id)
         {
-            Genre genre = GenreManager.LoadById(id);
-            return View(genre);
+            Director director = DirectorManager.LoadById(id);
+            return View(director);
         }
 
-        // POST: GenreController/Edit/5
+        // POST: DirectorController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Genre genre)
+        public ActionResult Edit(Director director)
         {
             try
             {
-                int result = GenreManager.Update(genre);
+                int result = DirectorManager.Update(director);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -63,21 +63,21 @@ namespace DDB.DVDCentral.UI.Controllers
             }
         }
 
-        // GET: GenreController/Delete/5
+        // GET: DirectorController/Delete/5
         public ActionResult Delete(int id)
         {
-            Genre genre = GenreManager.LoadById(id);
-            return View(genre);
+            Director director = DirectorManager.LoadById(id);
+            return View(director);
         }
 
-        // POST: GenreController/Delete/5
+        // POST: DirectorController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
-                int result = GenreManager.Delete(id);
+                int result = DirectorManager.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
