@@ -8,11 +8,11 @@ namespace DVDCentral.BL.Models
 {//
     public class Order
     {
-        public required int Id { get; set; }
+        public int Id { get; set; }
         public required int CustomerId { get; set; }
         public required DateTime OrderDate { get; set; }
         public required int UserId { get; set; }
-        public required DateTime ShipDate { get; set; }
+        public  DateTime ShipDate { get; set; }
         public List<OrderItem> OrderItems { get; set; }
     }
 }

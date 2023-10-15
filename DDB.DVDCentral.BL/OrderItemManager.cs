@@ -181,6 +181,37 @@ namespace DDB.DVDCentral.BL
             return list;
         }
 
+        public static List<OrderItem> LoadByOrderId(int orderId)
+        {
+            // I think its finished 15Oct
+
+            List<OrderItem> list = new List<OrderItem>();
+
+            using (DVDCentralEntities dc = new DVDCentralEntities())
+            {
+                (from e in dc.tblOrderItems
+                 where e.OrderId == orderId
+                 select new
+                 {
+                     e.Id,
+                     e.OrderId,
+                     e.MovieId,
+                     e.Quantity,
+                     e.Cost
+                 }).ToList()
+                 .ForEach(orderItem => list.Add(new OrderItem
+                 {
+                     Id = orderItem.Id,
+                     OrderId = orderItem.OrderId,
+                     MovieId = orderItem.MovieId,
+                     Quantity = orderItem.Quantity,
+                     Cost = orderItem.Cost
+                 }));
+            }
+  
+            return list;
+        }
+
 
     }
 }
