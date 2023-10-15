@@ -89,7 +89,7 @@ namespace DDB.DVDCentral.BL.Test
         }
 
         [TestMethod]
-        public void LoadByIdCustomerIdTest()
+        public void LoadByCustomerIdTest()
         {
             int customerId = OrderManager.Load().FirstOrDefault().CustomerId;
 
