@@ -171,6 +171,9 @@ namespace DDB.DVDCentral.BL
             using (DVDCentralEntities dc = new DVDCentralEntities())
             {
                 (from e in dc.tblMovies
+                 join f in dc.tblFormats on e.FormatId equals f.Id
+                 join r in dc.tblRatings on e.RatingId equals r.Id
+                 join d in dc.tblDirectors on e.DirectorId equals d.Id
                  select new
                  {
                      e.Id,
@@ -181,7 +184,10 @@ namespace DDB.DVDCentral.BL
                      e.FormatId,
                      e.DirectorId, 
                      e.InStkQty,
-                     e.ImagePath
+                     e.ImagePath,
+                     RatingDescription = r.Description,
+                     FormatDescription = f.Description,
+                     DirectorFullName = d.FirstName + " " + d.LastName
                  })
                  .ToList()
                  .ForEach(movie => list.Add(new Movie
@@ -194,7 +200,10 @@ namespace DDB.DVDCentral.BL
                      FormatId = movie.FormatId,
                      DirectorId = movie.DirectorId,
                      InStkQty = movie.InStkQty,
-                     ImagePath = movie.ImagePath
+                     ImagePath = movie.ImagePath,
+                     RatingDescription = movie.RatingDescription,
+                     FormatDescription = movie.FormatDescription,
+                     DirectorFullName = movie.DirectorFullName
                  }));
             }
 

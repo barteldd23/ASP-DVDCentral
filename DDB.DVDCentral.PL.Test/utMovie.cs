@@ -33,6 +33,24 @@ namespace DDB.DVDCentral.PL.Test
         }
 
         [TestMethod]
+        public void LoadAllTest()
+        {
+            var movies = (from m in dc.tblMovies
+                          join f in dc.tblFormats on m.FormatId equals f.Id
+                          join r in dc.tblRatings on m.RatingId equals r.Id
+                          join d in dc.tblDirectors on m.DirectorId equals d.Id
+                          select new
+                          {
+                              m.Id,
+                              RatingDescription = r.Description,
+                              FormatDescription = f.Description,
+                              DirectorFullName = d.FirstName + " " + d.LastName
+                          }).ToList();
+
+            Assert.AreEqual(3, movies.Count);
+        }
+
+        [TestMethod]
         public void InsertTest()
         {
             tblMovie entity = new tblMovie();
