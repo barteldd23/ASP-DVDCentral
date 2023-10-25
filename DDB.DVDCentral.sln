@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDB.DVDCentral.PL.Test", "D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDB.DVDCentral.BL.Test", "DDB.DVDCentral.BL.Test\DDB.DVDCentral.BL.Test.csproj", "{7ABDE50F-18D2-40FE-8015-FFEC0EF40FCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDB.DVDCentral.UI", "DDB.DVDCentral.UI\DDB.DVDCentral.UI.csproj", "{5574AA24-531A-4CB2-8698-596BF7A4C3F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDB.DVDCentral.UI", "DDB.DVDCentral.UI\DDB.DVDCentral.UI.csproj", "{5574AA24-531A-4CB2-8698-596BF7A4C3F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
