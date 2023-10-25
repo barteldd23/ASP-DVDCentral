@@ -164,7 +164,7 @@ namespace DDB.DVDCentral.BL
             }
         }
 
-        public static List<Movie> Load()
+        public static List<Movie> Load(int? genreId = null)
         {
             List<Movie> list = new List<Movie>();
 
@@ -174,6 +174,8 @@ namespace DDB.DVDCentral.BL
                  join f in dc.tblFormats on e.FormatId equals f.Id
                  join r in dc.tblRatings on e.RatingId equals r.Id
                  join d in dc.tblDirectors on e.DirectorId equals d.Id
+                 join mg in dc.tblMovieGenres on e.Id equals mg.MovieId
+                 where mg.GenreId == genreId || genreId == null
                  select new
                  {
                      e.Id,
@@ -189,7 +191,7 @@ namespace DDB.DVDCentral.BL
                      FormatDescription = f.Description,
                      DirectorFullName = d.FirstName + " " + d.LastName
                  })
-                 .ToList()
+                 .Distinct().ToList()
                  .ForEach(movie => list.Add(new Movie
                  {
                      Id = movie.Id,

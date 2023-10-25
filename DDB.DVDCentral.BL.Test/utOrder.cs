@@ -93,7 +93,8 @@ namespace DDB.DVDCentral.BL.Test
         {
             int customerId = OrderManager.Load().FirstOrDefault().CustomerId;
 
-            Assert.AreEqual(OrderManager.LoadById(customerId).CustomerId, customerId);
+            // Assert.AreEqual(OrderManager.LoadById(customerId).CustomerId, customerId);
+            Assert.AreEqual(OrderManager.Load(customerId)[0].CustomerId, customerId);
         }
 
 
