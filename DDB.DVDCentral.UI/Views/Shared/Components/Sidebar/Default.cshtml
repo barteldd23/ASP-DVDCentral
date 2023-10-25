@@ -1,17 +1,23 @@
-﻿@model IEnumerable<DDB.DVDCentral.BL.Models.Genre>
+﻿@model IEnumerable<DVDCentral.BL.Models.Genre>
 
-<h3>Search Movies By Genre</h3>
-<ul>
-    @foreach (var genre in Model)
-    {
+
+<div class="header rounded-top">
+    <h4>Search By Genre</h4>
+</div>
+
+<div>
+    <ul>
+        @foreach (var genre in Model)
+        {
+            <li>
+                <a asp-controller="Movie"
+                   asp-action="Browse"
+                   asp-route-id="@genre.Id">@genre.Description</a>
+            </li>
+        }
         <li>
             <a asp-controller="Movie"
-               asp-action="Browse"
-               asp-route-id="@genre.Id">@genre.Description</a>
+               asp-action="Index">All Movies</a>
         </li>
-    }
-    <li>
-        <a asp-asp-controller="Movie"
-           asp-action="Index">All Movies</a>
-    </li>
-</ul>
+    </ul>
+</div>

@@ -8,19 +8,24 @@ namespace DDB.DVDCentral.UI.Controllers
         // GET: GenreController
         public ActionResult Index()
         {
+            ViewBag.Title = "Genres";
             return View(GenreManager.Load());
         }
 
         // GET: GenreController/Details/5
         public ActionResult Details(int id)
         {
-            Genre genre = GenreManager.LoadById(id);
-            return View(genre);
+            var item = GenreManager.LoadById(id);
+            ViewBag.Title = "Genre";
+            ViewBag.Subject = item.Description;
+            return View(item);
         }
 
         // GET: GenreController/Create
         public ActionResult Create()
         {
+            ViewBag.Title = "Create";
+            ViewBag.Subject = "Genre";
             return View();
         }
 
@@ -43,8 +48,10 @@ namespace DDB.DVDCentral.UI.Controllers
         // GET: GenreController/Edit/5
         public ActionResult Edit(int id)
         {
-            Genre genre = GenreManager.LoadById(id);
-            return View(genre);
+            var item = GenreManager.LoadById(id);
+            ViewBag.Title = "Edit Genre";
+            ViewBag.Subject = item.Description;
+            return View(item);
         }
 
         // POST: GenreController/Edit/5
@@ -66,8 +73,10 @@ namespace DDB.DVDCentral.UI.Controllers
         // GET: GenreController/Delete/5
         public ActionResult Delete(int id)
         {
-            Genre genre = GenreManager.LoadById(id);
-            return View(genre);
+            var item = GenreManager.LoadById(id);
+            ViewBag.Title = "Are You sure you want to delete this?";
+            ViewBag.Subject = "Genre: " + item.Description;
+            return View(item);
         }
 
         // POST: GenreController/Delete/5

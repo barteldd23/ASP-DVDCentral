@@ -8,19 +8,24 @@ namespace DDB.DVDCentral.UI.Controllers
         // GET: DirectorController
         public ActionResult Index()
         {
+            ViewBag.Title = "Directors";
             return View(DirectorManager.Load());
         }
 
         // GET: DirectorController/Details/5
         public ActionResult Details(int id)
         {
-            Director director = DirectorManager.LoadById(id);
-            return View(director);
+            var item = DirectorManager.LoadById(id);
+            ViewBag.Title = "Director";
+            ViewBag.Subject = item.FullName;
+            return View(item);
         }
 
         // GET: DirectorController/Create
         public ActionResult Create()
         {
+            ViewBag.Title = "Create";
+            ViewBag.Subject = "Director";
             return View();
         }
 
@@ -43,8 +48,10 @@ namespace DDB.DVDCentral.UI.Controllers
         // GET: DirectorController/Edit/5
         public ActionResult Edit(int id)
         {
-            Director director = DirectorManager.LoadById(id);
-            return View(director);
+            var item = DirectorManager.LoadById(id);
+            ViewBag.Title = "Edit Director";
+            ViewBag.Subject = item.FullName;
+            return View(item);
         }
 
         // POST: DirectorController/Edit/5
@@ -66,8 +73,10 @@ namespace DDB.DVDCentral.UI.Controllers
         // GET: DirectorController/Delete/5
         public ActionResult Delete(int id)
         {
-            Director director = DirectorManager.LoadById(id);
-            return View(director);
+            var item = DirectorManager.LoadById(id);
+            ViewBag.Title = "Are You sure you want to delete this?";
+            ViewBag.Subject = "Director: " + item.FullName;
+            return View(item);
         }
 
         // POST: DirectorController/Delete/5

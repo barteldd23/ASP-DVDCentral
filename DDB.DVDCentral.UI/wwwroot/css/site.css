@@ -20,3 +20,23 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.sidebar ul{
+    list-style: none;
+}
+
+.sidebar ul a{
+    text-decoration: none;
+}
+
+.header{
+    background-color: lightslategray;
+    color: black;
+}
+
+.table tr:nth-child(even){
+    background-color: lightgray;
+}
+.bg-dark {
+    background: linear-gradient(90deg,lightgray 0%, lightslategray 35%);
+}

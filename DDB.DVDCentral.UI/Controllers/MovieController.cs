@@ -6,6 +6,7 @@ namespace DDB.DVDCentral.UI.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Title = "Movie List";
             return View(MovieManager.Load());
         }
     }

@@ -8,19 +8,24 @@ namespace DDB.DVDCentral.UI.Controllers
         // GET: FormatController
         public ActionResult Index()
         {
+            ViewBag.Title = "Formats";
             return View(FormatManager.Load());
         }
 
         // GET: FormatController/Details/5
         public ActionResult Details(int id)
         {
-            Format format = FormatManager.LoadById(id);
-            return View(format);
+            var item = FormatManager.LoadById(id);
+            ViewBag.Title = "Format";
+            ViewBag.Subject = item.Description;
+            return View(item);
         }
 
         // GET: FormatController/Create
         public ActionResult Create()
         {
+            ViewBag.Title = "Create";
+            ViewBag.Subject = "Format";
             return View();
         }
 
@@ -43,8 +48,10 @@ namespace DDB.DVDCentral.UI.Controllers
         // GET: FormatController/Edit/5
         public ActionResult Edit(int id)
         {
-            Format format = FormatManager.LoadById(id);
-            return View(format);
+            var item = FormatManager.LoadById(id);
+            ViewBag.Title = "Edit Format";
+            ViewBag.Subject = item.Description;
+            return View(item);
         }
 
         // POST: FormatController/Edit/5
@@ -66,8 +73,10 @@ namespace DDB.DVDCentral.UI.Controllers
         // GET: FormatController/Delete/5
         public ActionResult Delete(int id)
         {
-            Format format = FormatManager.LoadById(id);
-            return View(format);
+            var item = FormatManager.LoadById(id);
+            ViewBag.Title = "Are You sure you want to delete this?";
+            ViewBag.Subject = "Format: " + item.Description;
+            return View(item);
         }
 
         // POST: FormatController/Delete/5
