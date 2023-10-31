@@ -29,6 +29,34 @@
                 <input asp-for="ShipDate" class="form-control" />
                 <span asp-validation-for="ShipDate" class="text-danger"></span>
             </div>
+
+                @if (Model.OrderItems.Any())
+                {
+                    <div class="row">
+                        <h4 class="col-md-8 rounded">Order Items:</h4>
+                    </div>
+                    <div class="row">
+                        <table class="col-md-8 table">
+                            <tr>
+                                <th>Movie Title</th>
+                                <th>Cost</th>
+                                <th>Quantity</th>
+                                <th>Total Cost</th>
+                            </tr>
+                            @foreach (var item in Model.OrderItems)
+                            {
+                                <tr>
+                                    <td>@item.MovieTitle</td>
+                                    <td>@item.Cost</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.TotalCost</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                }
+
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

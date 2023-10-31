@@ -6,7 +6,8 @@ namespace DDB.DVDCentral.UI.ViewComponents
     {
         public IViewComponentResult Invoke()
         {
-            return View(GenreManager.Load());
+            //Dont know how to get the list of orderItems for a specific order sent to this view call:
+            return View();
         }
     }
 }

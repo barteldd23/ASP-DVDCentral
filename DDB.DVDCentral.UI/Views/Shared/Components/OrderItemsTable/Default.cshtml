@@ -1,19 +1,26 @@
-﻿@model IEnumerable<DVDCentral.BL.Models.Order>
+﻿@model IEnumerable<DVDCentral.BL.Models.OrderItem>
 
 
 <div>
-    <ul>
+    @if (Model.Any())
+    {
+        <table>
+            <tr>
+                <th>Movie Title</th>
+                <th>Cost</th>
+                <th>Quantity</th>
+                <th>Total Cost</th>
+            </tr>
         @foreach (var item in Model)
         {
-            <li>
-                <a asp-controller="Movie"
-                   asp-action="Browse"
-                   asp-route-id="@genre.Id">@genre.Description</a>
-            </li>
+            <tr>
+                <td>@item.MovieTitle</td>
+                <td>@item.Cost</td>
+                <td>@item.Quantity</td>
+                <td>@item.TotalCost</td>
+            </tr>
         }
-        <li>
-            <a asp-controller="Movie"
-               asp-action="Index">All Movies</a>
-        </li>
-    </ul>
+        </table>
+    }
+    
 </div>

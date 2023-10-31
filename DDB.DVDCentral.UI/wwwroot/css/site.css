@@ -40,3 +40,6 @@ body {
 .bg-dark {
     background: linear-gradient(90deg,lightgray 0%, lightslategray 35%);
 }
+.table{
+    margin-bottom: 10px;
+}

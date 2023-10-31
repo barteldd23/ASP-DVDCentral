@@ -13,7 +13,7 @@ namespace DVDCentral.BL.Models
         public required int MovieId { get; set; }
         public required int Quantity { get; set; }
         public required double Cost { get; set; }
-        public string MovieDescription { get; set; }
+        public string MovieTitle { get; set; }
 
         public double TotalCost
         {
