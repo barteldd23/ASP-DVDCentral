@@ -161,13 +161,15 @@ namespace DDB.DVDCentral.BL
             using (DVDCentralEntities dc = new DVDCentralEntities())
             {
                 (from e in dc.tblOrderItems
+                 join m in dc.tblMovies on e.MovieId equals m.Id
                  select new
                  {
                      e.Id,
                      e.OrderId,
                      e.MovieId,
                      e.Quantity,
-                     e.Cost
+                     e.Cost,
+                     m.Description
                  }).ToList()
                  .ForEach( orderItem => list.Add(new OrderItem
                  {
@@ -175,7 +177,8 @@ namespace DDB.DVDCentral.BL
                      OrderId = orderItem.OrderId,
                      MovieId =orderItem.MovieId,
                      Quantity = orderItem.Quantity,
-                     Cost = orderItem.Cost
+                     Cost = orderItem.Cost,
+                     MovieDescription = orderItem.Description
                  }));
             }
             return list;

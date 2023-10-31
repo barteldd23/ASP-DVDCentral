@@ -17,5 +17,9 @@ namespace DVDCentral.BL.Models
         public required string ZIP { get; set;}
         public required string Phone { get; set;}
         public required int UserId { get; set; }
+        public string FullName
+        {
+            get { return FirstName + " " + LastName; }
+        }
     }
 }
