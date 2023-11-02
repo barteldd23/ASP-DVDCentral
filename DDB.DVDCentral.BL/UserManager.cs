@@ -48,7 +48,7 @@ namespace DDB.DVDCentral.BL
                 entity.Id = dc.tblUsers.Any() ? dc.tblUsers.Max(s => s.Id) + 1 : 1;  // get last ID in table and add 1, or set Id to 1 because there are no Values in the table.
                 entity.FirstName = user.FirstName;
                 entity.LastName = user.LastName;
-                entity.UserId = user.UserId;
+                entity.UserName = user.UserName;
                 entity.Password = GetHash(user.Password);
 
 
@@ -81,7 +81,7 @@ namespace DDB.DVDCentral.BL
                     {
                         entity.FirstName = user.FirstName;
                         entity.LastName = user.LastName;
-                        entity.UserId = user.UserId;
+                        entity.UserName = user.UserName;
                         entity.Password = GetHash(user.Password);
 
                         results = dc.SaveChanges();
@@ -138,8 +138,8 @@ namespace DDB.DVDCentral.BL
             {
                 using(DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                        tblUser bfoote = dc.tblUsers.Where(e => e.UserId == "bfoote").FirstOrDefault();
-                        tblUser dbartel = dc.tblUsers.Where(e => e.UserId == "dbartel").FirstOrDefault();
+                        tblUser bfoote = dc.tblUsers.Where(e => e.UserName == "bfoote").FirstOrDefault();
+                        tblUser dbartel = dc.tblUsers.Where(e => e.UserName == "dbartel").FirstOrDefault();
                         if (bfoote == null) 
                         {
                             User user1 = new User
@@ -147,7 +147,7 @@ namespace DDB.DVDCentral.BL
                                 Id = 1,
                                 FirstName = "Brian",
                                 LastName = "Foote",
-                                UserId = "bfoote",
+                                UserName = "bfoote",
                                 Password = "maple"
                             };
 
@@ -161,7 +161,7 @@ namespace DDB.DVDCentral.BL
                                 Id = 2,
                                 FirstName = "Dean",
                                 LastName = "Bartel",
-                                UserId = "dbartel",
+                                UserName = "dbartel",
                                 Password = "password"
                             };
 
@@ -180,13 +180,13 @@ namespace DDB.DVDCentral.BL
         {
 			try
 			{
-                if(!string.IsNullOrEmpty(user.UserId))
+                if(!string.IsNullOrEmpty(user.UserName))
                 {
                     if(!string.IsNullOrEmpty(user.Password))
                     {
                         using(DVDCentralEntities dc = new DVDCentralEntities())
                         {
-                            tblUser tblUser = dc.tblUsers.Where(e => e.UserId == user.UserId).FirstOrDefault();
+                            tblUser tblUser = dc.tblUsers.Where(e => e.UserName == user.UserName).FirstOrDefault();
                             if(tblUser != null)
                             {
                                 if(tblUser.Password == GetHash(user.Password))
@@ -238,7 +238,7 @@ namespace DDB.DVDCentral.BL
                      select new
                      {
                          e.Id,
-                         e.UserId,
+                         e.UserName,
                          e.FirstName, 
                          e.LastName,
                          e.Password,
@@ -246,7 +246,7 @@ namespace DDB.DVDCentral.BL
                      .ForEach (user => list.Add(new User
                      {
                          Id = user.Id,
-                         UserId = user.UserId,
+                         UserName = user.UserName,
                          FirstName = user.FirstName,
                          LastName = user.LastName,
                          Password = user.Password
@@ -254,6 +254,38 @@ namespace DDB.DVDCentral.BL
                 }
 
                 return list;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public static User LoadById(int id)
+        {
+            try
+            {
+                using (DVDCentralEntities dc = new DVDCentralEntities())
+                {
+                    tblUser entity = dc.tblUsers.Where(e => e.Id == id).FirstOrDefault();
+
+                    if (entity != null)
+                    {
+                        return new User
+                        {
+                            Id = entity.Id,
+                            FirstName = entity.FirstName,
+                            LastName = entity.LastName,
+                            Password = entity.Password,
+                            UserName= entity.UserName
+                        };
+                    }
+                    else
+                    {
+                        throw new Exception("Row does not exist.");
+                    }
+                }
             }
             catch (Exception)
             {

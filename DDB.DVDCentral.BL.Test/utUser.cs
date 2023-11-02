@@ -25,7 +25,7 @@ namespace DDB.DVDCentral.BL.Test
                 FirstName = "Test",
                 LastName = "Test",
                 Password = "Test",
-                UserId = "Test"
+                UserName = "Test"
             };
             int result = UserManager.Insert(user, true);
             Assert.AreEqual(1, result);
@@ -46,13 +46,13 @@ namespace DDB.DVDCentral.BL.Test
 
             User user1 = new User
             {
-                UserId = "bfoote",
+                UserName = "bfoote",
                 Password = "maple"
             };
 
             User user2 = new User
             {
-                UserId = "dbartel",
+                UserName = "dbartel",
                 Password = "password"
             };
 
@@ -90,7 +90,7 @@ namespace DDB.DVDCentral.BL.Test
             {
                 User user1 = new User
                 {
-                    UserId = "bfoote"
+                    UserName = "bfoote"
                 };
                 UserManager.Login(user1);
             }
@@ -112,7 +112,7 @@ namespace DDB.DVDCentral.BL.Test
             {
                 User user1 = new User
                 {
-                    UserId = "bfoote",
+                    UserName = "bfoote",
                     Password = "test"
                 };
                 UserManager.Login(user1);
@@ -135,7 +135,7 @@ namespace DDB.DVDCentral.BL.Test
             {
                 User user1 = new User
                 {
-                    UserId = "BFOOTE",
+                    UserName = "BFOOTE",
                     Password = "maple"
                 };
                 UserManager.Login(user1);

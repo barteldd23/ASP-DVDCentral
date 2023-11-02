@@ -15,6 +15,7 @@ namespace DDB.DVDCentral.UI.Controllers
 
         public IActionResult Index()
         {
+            UserManager.Seed();
             return View();
         }
 
