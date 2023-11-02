@@ -1,5 +1,5 @@
 ﻿BEGIN
-	INSERT INTO tblUser(Id, FirstName, LastName, UserName, Password)
+	INSERT INTO tblUser(Id, FirstName, LastName, UserId, Password)
 	VALUES
 	(1, 'PlaceHolderFirst', 'PlaceLast', 'PlaceUserName', 'password'),
 	(2, 'PlaceHolderFirst', 'PlaceLast', 'PlaceUserName', 'password'),
