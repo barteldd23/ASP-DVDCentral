@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DDB.DVDCentral.UI.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DDB.DVDCentral.UI.Controllers
@@ -26,7 +28,10 @@ namespace DDB.DVDCentral.UI.Controllers
         {
             ViewBag.Title = "Create";
             ViewBag.Subject = "Format";
-            return View();
+            if (Authenticate.IsAuthenticated(HttpContext))
+                return View();
+            else
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
         }
 
         // POST: FormatController/Create
@@ -39,8 +44,9 @@ namespace DDB.DVDCentral.UI.Controllers
                 int result = FormatManager.Insert(format);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
+                ViewBag.Error = ex.Message;
                 return View();
             }
         }
@@ -51,7 +57,10 @@ namespace DDB.DVDCentral.UI.Controllers
             var item = FormatManager.LoadById(id);
             ViewBag.Title = "Edit Format";
             ViewBag.Subject = item.Description;
-            return View(item);
+            if (Authenticate.IsAuthenticated(HttpContext))
+                return View(item);
+            else
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
         }
 
         // POST: FormatController/Edit/5
@@ -64,9 +73,10 @@ namespace DDB.DVDCentral.UI.Controllers
                 int result = FormatManager.Update(format);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ViewBag.Error = ex.Message;
+                return View(format);
             }
         }
 
@@ -76,7 +86,10 @@ namespace DDB.DVDCentral.UI.Controllers
             var item = FormatManager.LoadById(id);
             ViewBag.Title = "Are You sure you want to delete this?";
             ViewBag.Subject = "Format: " + item.Description;
-            return View(item);
+            if (Authenticate.IsAuthenticated(HttpContext))
+                return View(item);
+            else
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
         }
 
         // POST: FormatController/Delete/5
@@ -89,9 +102,11 @@ namespace DDB.DVDCentral.UI.Controllers
                 int result = FormatManager.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ViewBag.Error = ex.Message;
+                var item = FormatManager.LoadById(id);
+                return View(item);
             }
         }
     }

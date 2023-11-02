@@ -37,11 +37,11 @@ namespace DDB.DVDCentral.UI.Controllers
         // POST: OrderController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Order rating)
+        public ActionResult Create(Order order)
         {
             try
             {
-                int result = OrderManager.Insert(rating);
+                int result = OrderManager.Insert(order);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -67,18 +67,18 @@ namespace DDB.DVDCentral.UI.Controllers
         // POST: OrderController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Order rating)
+        public ActionResult Edit(Order order)
         {
             try
             {
-                int result = OrderManager.Update(rating);
+                int result = OrderManager.Update(order);
 
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
                 ViewBag.Error = ex.Message;
-                return View();
+                return View(order);
             }
         }
 
@@ -107,7 +107,8 @@ namespace DDB.DVDCentral.UI.Controllers
             catch (Exception ex)
             {
                 ViewBag.Error = ex.Message;
-                return View();
+                var item = OrderManager.LoadById(id);
+                return View(item);
             }
         }
     }

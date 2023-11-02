@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DDB.DVDCentral.UI.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DDB.DVDCentral.UI.Controllers
@@ -40,7 +42,10 @@ namespace DDB.DVDCentral.UI.Controllers
         {
             ViewBag.Title = "Create";
             ViewBag.Subject = "New User";
-            return View();
+            if (Authenticate.IsAuthenticated(HttpContext))
+                return View();
+            else
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
         }
 
         // POST: UserController/Create
@@ -68,7 +73,11 @@ namespace DDB.DVDCentral.UI.Controllers
             var item = UserManager.LoadById(id);
             ViewBag.Title = "Edit";
             ViewBag.Subject = "User: " + item.FullName;
-            return View(UserManager.LoadById(id));
+            if (Authenticate.IsAuthenticated(HttpContext))
+                return View(UserManager.LoadById(id));
+            else
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
+           
         }
 
         // POST: UserController/Edit/5
