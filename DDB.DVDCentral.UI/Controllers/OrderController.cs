@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DDB.DVDCentral.UI.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DDB.DVDCentral.UI.Controllers
@@ -26,7 +28,10 @@ namespace DDB.DVDCentral.UI.Controllers
         {
             ViewBag.Title = "Create";
             ViewBag.Subject = "Order";
-            return View();
+            if (Authenticate.IsAuthenticated(HttpContext))
+                return View();
+            else
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
         }
 
         // POST: OrderController/Create
@@ -40,8 +45,9 @@ namespace DDB.DVDCentral.UI.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
+                ViewBag.Error = ex.Message;
                 return View();
             }
         }
@@ -52,7 +58,10 @@ namespace DDB.DVDCentral.UI.Controllers
             var item = OrderManager.LoadById(id);
             ViewBag.Title = "Edit Order";
             ViewBag.Subject = "No. : " + item.Id.ToString();
-            return View(item);
+            if (Authenticate.IsAuthenticated(HttpContext))
+                return View(item);
+            else
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
         }
 
         // POST: OrderController/Edit/5
@@ -66,8 +75,9 @@ namespace DDB.DVDCentral.UI.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
+                ViewBag.Error = ex.Message;
                 return View();
             }
         }
@@ -78,7 +88,10 @@ namespace DDB.DVDCentral.UI.Controllers
             var item = OrderManager.LoadById(id);
             ViewBag.Title = "Are You sure you want to delete this?";
             ViewBag.Subject = "Order No.: " + item.Id.ToString();
-            return View(item);
+            if (Authenticate.IsAuthenticated(HttpContext))
+                return View(item);
+            else
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
         }
 
         // POST: OrderController/Delete/5
@@ -91,8 +104,9 @@ namespace DDB.DVDCentral.UI.Controllers
                 int result = OrderManager.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
+                ViewBag.Error = ex.Message;
                 return View();
             }
         }

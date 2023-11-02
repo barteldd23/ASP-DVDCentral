@@ -123,6 +123,7 @@ namespace DDB.DVDCentral.UI.Controllers
         public IActionResult Logout()
         {
             ViewBag.Title = "Logged Out";
+            SetUser(null);
             return View();
         }
 
