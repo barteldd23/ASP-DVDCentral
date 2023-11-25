@@ -95,7 +95,7 @@ namespace DDB.DVDCentral.BL
         }
 
         public static int Delete(int Id,
-                                 bool rollback)
+                                 bool rollback=false)
         {
             try
             {

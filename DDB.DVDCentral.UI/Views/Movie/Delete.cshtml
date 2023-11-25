@@ -1,0 +1,68 @@
+﻿@model DVDCentral.BL.Models.Movie
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <div class="col-md-4 card">
+        <div class="card-header card-header-cust">
+            <h4>@Html.DisplayFor(model => model.Title)</h4>
+        </div>
+
+        <div class="card-body m-2">
+            <div class="card-img">
+                <img src="~/images/@Model.ImagePath"
+                     class="imgcard"
+                     alt="@Model.Title Poster"
+                     id="movieImage" />
+            </div>
+            <span class="fw-bold">@Html.DisplayNameFor(model => model.Description):</span> @Html.DisplayFor(model => model.Description)
+            <div class="row">
+                <div class="col-sm-8">
+                    <span class="fw-bold">@Html.DisplayNameFor(model => model.Cost):</span>
+                </div>
+                <div class="col-sm-4 align-content-end">
+                    $@Html.DisplayFor(model => model.Cost)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <span class="fw-bold">@Html.DisplayNameFor(model => model.InStkQty):</span>
+                </div>
+                <div class="col-sm-4 align-content-end">
+                    @Html.DisplayFor(model => model.InStkQty)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <span class="fw-bold">@Html.DisplayNameFor(model => model.RatingDescription):</span>
+                </div>
+                <div class="col-sm-4 align-content-end">
+                    @Html.DisplayFor(model => model.RatingDescription)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <span class="fw-bold">@Html.DisplayNameFor(model => model.FormatDescription):</span>
+                </div>
+                <div class="col-sm-4 align-content-end">
+                    @Html.DisplayFor(model => model.FormatDescription)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <span class="fw-bold">@Html.DisplayNameFor(model => model.DirectorFullName):</span>
+                </div>
+                <div class="col-sm-4 align-content-end">
+                    @Html.DisplayFor(model => model.DirectorFullName)
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <form asp-action="Delete" class="mt-2">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

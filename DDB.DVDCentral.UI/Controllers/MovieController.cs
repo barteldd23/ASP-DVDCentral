@@ -20,6 +20,14 @@ namespace DDB.DVDCentral.UI.Controllers
             return View(nameof(Index), MovieManager.Load(id));
         }
 
+        public IActionResult Details(int id)
+        {
+            var item = MovieManager.LoadById(id);
+            ViewBag.Title = "Movie";
+            ViewBag.Subject = item.Title;
+            return View(item);
+        }
+
         public IActionResult Create()
         {
             ViewBag.Title = "Create New Movie";
@@ -50,6 +58,33 @@ namespace DDB.DVDCentral.UI.Controllers
             {
                 ViewBag.Error = ex.Message;
                 return View(movieViewModel);
+            }
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var item = MovieManager.LoadById(id);
+            ViewBag.Title = "Are You sure you want to delete this?";
+            ViewBag.Subject = "Movie: " + item.Title;
+            if (Authenticate.IsAuthenticated(HttpContext))
+                return View(item);
+            else
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id, IFormCollection collection)
+        {
+            try
+            {
+                int result = MovieManager.Delete(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                var item = MovieManager.LoadById(id);
+                return View(item);
             }
         }
     }
