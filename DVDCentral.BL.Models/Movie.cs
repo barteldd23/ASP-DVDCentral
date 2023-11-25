@@ -10,13 +10,13 @@ namespace DVDCentral.BL.Models
     public class Movie
     {
         public int Id { get; set; }
-        public required string Title { get; set; }
-        public required string Description { get; set; }
-        public required double Cost { get; set; }
-        public required int RatingId { get; set; }
-        public required int FormatId { get; set; }
-        public required int DirectorId { get; set; }
-        public required int InStkQty { get; set; }
+        public  string Title { get; set; }
+        public  string Description { get; set; }
+        public  double Cost { get; set; }
+        public  int RatingId { get; set; }
+        public  int FormatId { get; set; }
+        public  int DirectorId { get; set; }
+        public  int InStkQty { get; set; }
 
         [DisplayName("Image")]
         public string? ImagePath { get; set; }

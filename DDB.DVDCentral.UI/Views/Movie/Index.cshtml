@@ -10,12 +10,12 @@
 <div class="row">
     @foreach(var item in Model)
     {
-        <div class="col-sm-4">
-            <div class="card-header">
-                @Html.DisplayNameFor(model => model.Title)
+        <div class="col-sm-4 card">
+            <div class="card-header card-header-cust">
+                <h4>@Html.DisplayFor(modelItem => item.Title)</h4>
             </div>
 
-            <div class="card-body">
+            <div class="card-body m-2">
                 <div class="card-img">
                     <img src="~/images/@item.ImagePath" 
                          class="imgcard" 
@@ -23,13 +23,47 @@
                          id="movieImage"
                           />
                 </div>
-                <p>@Html.DisplayNameFor(model => model.Description)</p>
-                <p>@Html.DisplayNameFor(model => model.Cost)</p>
-                <p>@Html.DisplayNameFor(model => model.Cost)</p>
-                <p>@Html.DisplayNameFor(model => model.InStkQty)</p>
-                <p>@Html.DisplayNameFor(model => model.RatingDescription)</p>
-                <p>@Html.DisplayNameFor(model => model.FormatDescription)</p>
-                <p>@Html.DisplayNameFor(model => model.DirectorFullName)</p>
+                <span class="fw-bold">@Html.DisplayNameFor(model => model.Description):</span> @Html.DisplayFor(modelItem => item.Description)
+                <div class="row">
+                    <div class="col-sm-8">
+                        <span class="fw-bold">@Html.DisplayNameFor(model => model.Cost):</span>
+                    </div>
+                    <div class="col-sm-4 align-content-end">
+                        $@Html.DisplayFor(modelItem => item.Cost)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <span class="fw-bold">@Html.DisplayNameFor(model => model.InStkQty):</span>
+                    </div>
+                    <div class="col-sm-4 align-content-end">
+                        @Html.DisplayFor(modelItem => item.InStkQty)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <span class="fw-bold">@Html.DisplayNameFor(model => model.RatingDescription):</span>
+                    </div>
+                    <div class="col-sm-4 align-content-end">
+                        @Html.DisplayFor(modelItem => item.RatingDescription)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <span class="fw-bold">@Html.DisplayNameFor(model => model.FormatDescription):</span>
+                    </div>
+                    <div class="col-sm-4 align-content-end">
+                        @Html.DisplayFor(modelItem => item.FormatDescription)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <span class="fw-bold">@Html.DisplayNameFor(model => model.DirectorFullName):</span>
+                    </div>
+                    <div class="col-sm-4 align-content-end">
+                        @Html.DisplayFor(modelItem => item.DirectorFullName)
+                    </div>
+                </div>
             </div>
 
             <div class="card-footer">
