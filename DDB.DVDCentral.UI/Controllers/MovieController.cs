@@ -28,21 +28,42 @@ namespace DDB.DVDCentral.UI.Controllers
             return View(item);
         }
 
-        public IActionResult Create()
+        public IActionResult Edit(int id)
         {
-            ViewBag.Title = "Create New Movie";
-            MovieViewModel movieViewModel = new MovieViewModel();
-            movieViewModel.Movie = new Movie();
-            movieViewModel.Formats = FormatManager.Load();
-            movieViewModel.Directors = DirectorManager.Load();
-            movieViewModel.Ratings = RatingManager.Load();
-            movieViewModel.Genres = GenreManager.Load();
+            ViewBag.Title = "Edit Movie";
+            MovieViewModel movieViewModel = new MovieViewModel(id);
 
             if (Authenticate.IsAuthenticated(HttpContext))
                 return View(movieViewModel);
             else
                 return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
-            
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Movie movie, MovieViewModel movieViewModel)
+        {
+            try
+            {
+                int result = MovieManager.Update(movie);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View(movieViewModel);
+            }
+        }
+
+        public IActionResult Create()
+        {
+            ViewBag.Title = "Create New Movie";
+            MovieViewModel movieViewModel = new MovieViewModel();
+
+            if (Authenticate.IsAuthenticated(HttpContext))
+                return View(movieViewModel);
+            else
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
         }
 
         [HttpPost]

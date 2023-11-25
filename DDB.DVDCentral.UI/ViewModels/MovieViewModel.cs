@@ -7,5 +7,32 @@
         public List<Director> Directors { get; set; }
         public List<Rating> Ratings { get; set; }
         public List<Format> Formats { get; set; }
+        public List<int> GenreIds { get; set; }
+
+        public MovieViewModel()
+        {
+            Genres = GenreManager.Load();
+            Directors = DirectorManager.Load();
+            Ratings = RatingManager.Load();
+            Formats = FormatManager.Load();
+            Movie = new Movie();
+        }
+
+        public MovieViewModel(int id)
+        {
+            try
+            {
+                Genres = GenreManager.Load();
+                Directors = DirectorManager.Load();
+                Ratings = RatingManager.Load();
+                Formats = FormatManager.Load();
+                Movie = MovieManager.LoadById(id);
+                GenreIds = MovieGenreManager.GetGenres(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

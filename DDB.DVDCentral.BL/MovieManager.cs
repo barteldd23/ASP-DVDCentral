@@ -52,7 +52,7 @@ namespace DDB.DVDCentral.BL
         }
 
         public static int Update(Movie movie,
-                                 bool rollback)
+                                 bool rollback = false)
         {
             try
             {

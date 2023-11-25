@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -113,6 +114,31 @@ namespace DDB.DVDCentral.BL
             {
 
                 throw;
+            }
+        }
+
+        public static List<int> GetGenres(int movieId)
+        {
+            using (DVDCentralEntities dc = new DVDCentralEntities())
+            {
+
+                tblMovieGenre entity = dc.tblMovieGenres.Where(e => e.Id == movieId).FirstOrDefault();
+                if (entity != null)
+                {
+                    List<int> genreIds = new List<int>();
+                    List<tblMovieGenre> entities = dc.tblMovieGenres.Where(e => e.Id == movieId).ToList();
+                    foreach(tblMovieGenre item in entities)
+                    {
+                        genreIds.Add(item.GenreId);
+                    }
+                    return genreIds;
+
+                }
+                else
+                {
+                    throw new Exception("No Genres");
+                }
+
             }
         }
 
