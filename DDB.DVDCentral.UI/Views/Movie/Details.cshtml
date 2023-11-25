@@ -14,6 +14,7 @@
             <img src="~/images/@Model.ImagePath"
                  class="imgcard"
                  alt="@Model.Title Poster"
+                 onclick="on('/images/@Model.ImagePath')"
                  id="movieImage" />
         </div>
         <span class="fw-bold">@Html.DisplayNameFor(model => model.Description):</span> @Html.DisplayFor(model => model.Description)
