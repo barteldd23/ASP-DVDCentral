@@ -44,7 +44,7 @@ namespace DDB.DVDCentral.UI.Controllers
         {
             try
             {
-                int result = MovieManager.Update(movie);
+                int result = MovieManager.Update(movieViewModel.Movie);
 
                 return RedirectToAction(nameof(Index));
             }
