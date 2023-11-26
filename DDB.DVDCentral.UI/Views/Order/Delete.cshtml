@@ -38,31 +38,9 @@
         </dd>
     </dl>
 
-        @if (Model.OrderItems.Any())
-        {
-        <div class="row">
-            <h4 class="col-md-8 rounded">Order Items:</h4>
-        </div>
-        <div class="row">
-            <table class="col-md-8 table">
-                <tr>
-                    <th>Movie Title</th>
-                    <th>Cost</th>
-                    <th>Quantity</th>
-                    <th>Total Cost</th>
-                </tr>
-                @foreach (var item in Model.OrderItems)
-                {
-                    <tr>
-                        <td>@item.MovieTitle</td>
-                        <td>@item.Cost</td>
-                        <td>@item.Quantity</td>
-                        <td>@item.TotalCost</td>
-                    </tr>
-                }
-            </table>
-        </div>
-        }
+    <div>
+        <partial name="_OrderItemsPartial" model="Model" />
+    </div>
 
     
     

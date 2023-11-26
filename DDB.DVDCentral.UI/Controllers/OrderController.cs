@@ -1,4 +1,5 @@
 ﻿using DDB.DVDCentral.UI.Models;
+using DDB.DVDCentral.UI.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,11 @@ namespace DDB.DVDCentral.UI.Controllers
         // GET: OrderController/Details/5
         public ActionResult Details(int id)
         {
+            //CustomerOrders customerOrders = new CustomerOrders(id);
+            //ViewBag.Title = "Order for " + customerOrders.Customer.FullName;
+            //ViewBag.Subject = "Order No.: " + customerOrders.Order.Id;
+            //return View(customerOrders);
+
             var item = OrderManager.LoadById(id);
             ViewBag.Title = "Order";
             ViewBag.Subject = "No. : " + item.Id.ToString();
