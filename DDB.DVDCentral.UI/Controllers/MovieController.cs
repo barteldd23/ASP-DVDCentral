@@ -30,11 +30,18 @@ namespace DDB.DVDCentral.UI.Controllers
 
         public IActionResult Edit(int id)
         {
-            ViewBag.Title = "Edit Movie";
-            MovieViewModel movieViewModel = new MovieViewModel(id);
+            
 
             if (Authenticate.IsAuthenticated(HttpContext))
+            {
+                MovieViewModel movieViewModel = new MovieViewModel(id);
+                HttpContext.Session.SetObject("genreids", movieViewModel.GenreIds);
+                ViewBag.Title = "Edit Movie";
+                ViewBag.Subject = movieViewModel.Movie.Title;
+                
                 return View(movieViewModel);
+            }
+
             else
                 return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
         }
@@ -44,6 +51,20 @@ namespace DDB.DVDCentral.UI.Controllers
         {
             try
             {
+                List<int> newGenreIds = new List<int>();
+                if(movieViewModel.GenreIds != null)
+                {
+                    newGenreIds = movieViewModel.GenreIds;
+                }
+
+                List<int> oldGenreIds = GetOldIds();
+
+                IEnumerable<int> deletes = oldGenreIds.Except(newGenreIds);
+                IEnumerable<int> adds = newGenreIds.Except(oldGenreIds);
+
+                deletes.ToList().ForEach(d => { MovieGenreManager.Delete })
+
+
                 int result = MovieManager.Update(movieViewModel.Movie);
 
                 return RedirectToAction(nameof(Index));
@@ -52,6 +73,18 @@ namespace DDB.DVDCentral.UI.Controllers
             {
                 ViewBag.Error = ex.Message;
                 return View(movieViewModel);
+            }
+        }
+
+        private List<int> GetOldIds()
+        {
+            if (HttpContext.Session.GetObject<List<int>>("genreids") != null)
+            {
+                return (HttpContext.Session.GetObject<List<int>>("genreids"));
+            }
+            else
+            {
+                return null;
             }
         }
 

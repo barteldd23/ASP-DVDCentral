@@ -116,6 +116,40 @@ namespace DDB.DVDCentral.BL
                 throw;
             }
         }
+        public static int Delete(int movieId,
+                                 int genreId,
+                                 bool rollback = false)
+        {
+            int results = 0;
+            try
+            {
+                using (DVDCentralEntities dc = new DVDCentralEntities())
+                {
+                    IDbContextTransaction transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
+
+                    tblMovieGenre entity = dc.tblMovieGenres.Where(e => e.MovieId == movieId && e.GenreId == genreId).FirstOrDefault();
+                    if (entity != null)
+                    {
+                        dc.tblMovieGenres.Remove(entity);
+                        results = dc.SaveChanges();
+
+                    }
+                    else
+                    {
+                        throw new Exception("Row Does Not Exist.");
+                    }
+
+                    if (rollback) transaction.Rollback();
+                    return results;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         public static List<int> GetGenres(int movieId)
         {

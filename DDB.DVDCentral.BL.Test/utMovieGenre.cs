@@ -19,6 +19,8 @@ namespace DDB.DVDCentral.BL.Test
         {
             int result = MovieGenreManager.Delete(3, true);
             Assert.AreEqual(1, result);
+            result = MovieGenreManager.Delete(3,2, true);
+            Assert.AreEqual(1, result);
         }
 
         [TestMethod]
