@@ -8,3 +8,10 @@ build it by copy all this scaffold below, but all one line.
 
 Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=DDB.DVDCentral.DB;Integrated Security=True" 
 Microsoft.EntityFrameworkCore.SqlServer -Context DVDCentralEntities -UseDatabaseNames -force
+
+
+~~~~~Data Table inserts into _Layout:
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" asp-append-version="true" />

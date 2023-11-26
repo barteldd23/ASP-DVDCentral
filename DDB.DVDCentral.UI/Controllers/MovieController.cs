@@ -3,13 +3,23 @@ using DDB.DVDCentral.UI.ViewModels;
 using DVDCentral.BL.Models;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGeneration.Design;
 
 namespace DDB.DVDCentral.UI.Controllers
 {
     public class MovieController : Controller
     {
+        private readonly IWebHostEnvironment _host;
+
+        public MovieController(IWebHostEnvironment host)
+        {
+            _host = host;
+        }
+
+
         public IActionResult Index()
         {
+            
             ViewBag.Title = "Movie List";
             return View(MovieManager.Load());
         }
@@ -56,6 +66,16 @@ namespace DDB.DVDCentral.UI.Controllers
                 if(movieViewModel.GenreIds != null)
                 {
                     newGenreIds = movieViewModel.GenreIds;
+                }
+
+                movieViewModel.Movie.ImagePath = movieViewModel.File.FileName;
+
+                string path = _host.WebRootPath + "\\images\\";
+
+                using (var stream = System.IO.File.Create(path + movieViewModel.File.FileName))
+                {
+                    movieViewModel.File.CopyTo(stream);
+                    ViewBag.Message = "File Uploaded Successfully...";
                 }
 
                 List<int> oldGenreIds = GetOldIds();

@@ -83,8 +83,6 @@
                              document.getElementById("movieimage").src = "/images/@Model.Movie.ImagePath";
                         </script>
                     }
-                     
-                <input asp-for="Movie.ImagePath" class="form-control m-2" />
                 <input type="file" name="File" id="File" accept="image/" onchange="loadFile(event)" class="m-2" />
                 <span asp-validation-for="Movie.ImagePath" class="text-danger"></span>
             </div>

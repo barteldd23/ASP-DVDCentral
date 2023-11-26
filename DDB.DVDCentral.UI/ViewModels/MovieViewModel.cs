@@ -8,6 +8,7 @@
         public List<Rating> Ratings { get; set; }
         public List<Format> Formats { get; set; }
         public List<int> GenreIds { get; set; }
+        public IFormFile File { get; set; }
 
         public MovieViewModel()
         {
