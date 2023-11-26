@@ -13,9 +13,13 @@ namespace DVDCentral.BL.Models
         public  string Title { get; set; }
         public  string Description { get; set; }
         public  double Cost { get; set; }
+        [DisplayName("Rating")]
         public  int RatingId { get; set; }
+        [DisplayName("Format")]
         public  int FormatId { get; set; }
+        [DisplayName("Director")]
         public  int DirectorId { get; set; }
+        [DisplayName("In Stock Quantity")]
         public  int InStkQty { get; set; }
 
         [DisplayName("Image")]
