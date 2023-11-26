@@ -34,7 +34,8 @@ namespace DDB.DVDCentral.UI.Controllers
 
             if (Authenticate.IsAuthenticated(HttpContext))
             {
-                MovieViewModel movieViewModel = new MovieViewModel(id);
+                MovieViewModel movieViewModel = null;
+                movieViewModel = new MovieViewModel(id);
                 HttpContext.Session.SetObject("genreids", movieViewModel.GenreIds);
                 ViewBag.Title = "Edit Movie";
                 ViewBag.Subject = movieViewModel.Movie.Title;
@@ -62,7 +63,8 @@ namespace DDB.DVDCentral.UI.Controllers
                 IEnumerable<int> deletes = oldGenreIds.Except(newGenreIds);
                 IEnumerable<int> adds = newGenreIds.Except(oldGenreIds);
 
-                deletes.ToList().ForEach(d => { MovieGenreManager.Delete })
+                deletes.ToList().ForEach(d =>  MovieGenreManager.Delete(movieViewModel.Movie.Id, d) );
+                adds.ToList().ForEach(a => MovieGenreManager.Insert(movieViewModel.Movie.Id, a));
 
 
                 int result = MovieManager.Update(movieViewModel.Movie);
@@ -71,6 +73,8 @@ namespace DDB.DVDCentral.UI.Controllers
             }
             catch (Exception ex)
             {
+                ViewBag.Title = "Edit Movie";
+                ViewBag.Subject = movieViewModel.Movie.Title;
                 ViewBag.Error = ex.Message;
                 return View(movieViewModel);
             }

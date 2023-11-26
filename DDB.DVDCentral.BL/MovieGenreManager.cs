@@ -156,7 +156,7 @@ namespace DDB.DVDCentral.BL
             using (DVDCentralEntities dc = new DVDCentralEntities())
             {
 
-                tblMovieGenre entity = dc.tblMovieGenres.Where(e => e.Id == movieId).FirstOrDefault();
+                tblMovieGenre entity = dc.tblMovieGenres.Where(e => e.MovieId == movieId).FirstOrDefault();
                 if (entity != null)
                 {
                     List<int> genreIds = new List<int>();
