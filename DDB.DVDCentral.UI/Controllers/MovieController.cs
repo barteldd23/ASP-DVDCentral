@@ -128,7 +128,25 @@ namespace DDB.DVDCentral.UI.Controllers
         {
             try
             {
-                int result = MovieManager.Insert(movie);
+
+                movieViewModel.Movie.ImagePath = movieViewModel.File.FileName;
+
+                string path = _host.WebRootPath + "\\images\\";
+
+                using (var stream = System.IO.File.Create(path + movieViewModel.File.FileName))
+                {
+                    movieViewModel.File.CopyTo(stream);
+                    ViewBag.Message = "File Uploaded Successfully...";
+                }
+
+                int result = MovieManager.Insert(movieViewModel.Movie);
+
+                foreach (int genreId in movieViewModel.GenreIds)
+                {
+                    MovieGenreManager.Insert(movieViewModel.Movie.Id, genreId);
+                }
+
+                
 
                 return RedirectToAction(nameof(Index));
             }

@@ -25,7 +25,9 @@ namespace DVDCentral.BL.Models
         [DisplayName("Image")]
         public string? ImagePath { get; set; }
 
+        [DisplayName("Rating")]
         public string RatingDescription { get; set; }
+        [DisplayName("Format")]
         public string FormatDescription { get; set; }
 
         [DisplayName("Director")]
