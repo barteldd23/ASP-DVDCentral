@@ -94,6 +94,10 @@
                 @await Component.InvokeAsync("Sidebar")
             </div>
 
+            <div class="col-md-2 sidebar">
+                @await Component.InvokeAsync("ShoppingCart")
+            </div>
+
             <div id="overlay" onclick="off()">
                 <div id="imageproplarge">
                     <img class="imageproplarge" id="output" />
@@ -148,4 +152,16 @@
             "lengthMenu": [[5, 10, 25, 30, -1], [5, 10, 25, 30, "All"]]
         });
     });
+</script>
+
+<script type="text/javascript">
+    function AddToCart(id) {
+        $.get("/ShoppingCart/Add/" + id, function (data) {
+            var cartcount = parseInt($("#cartcount").val()) + 1;
+            $("#cartcount").val(cartcount);
+            $("#cartcountdisp").text(cartcount + " items");
+            console.log(cartcount + " items");
+        });
+    }
+
 </script>
