@@ -27,7 +27,7 @@
                     <td>@item.Quantity</td>
                     <td>$@item.TotalCost</td>
                     <td>
-                        <a class="btn btn-sm btn-primary" asp-route-id="@item.Id" asp-action="Remove" asp-controller="OrderItem">Delete</a>
+                            <a class="btn btn-sm btn-primary" asp-route-orderItemId="@item.Id" asp-route-orderId="@Model.Id" asp-action="Remove" asp-controller="OrderItem">Delete</a>
                     </td>
                 </tr>
             }

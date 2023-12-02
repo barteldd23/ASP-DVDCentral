@@ -13,7 +13,7 @@ namespace DDB.DVDCentral.UI.Controllers
         public IActionResult Remove(int orderItemId, int orderId)
         {
             OrderItemManager.Delete(orderItemId);
-            return RedirectToAction(nameof(Edit), "Order");
+            return RedirectToAction(nameof(Edit), "Order", orderId);
         }
 
         public IActionResult Edit()
