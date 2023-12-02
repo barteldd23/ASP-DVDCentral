@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +15,27 @@ namespace DVDCentral.BL.Models
         public required DateTime OrderDate { get; set; }
         public required int UserId { get; set; }
         public  DateTime ShipDate { get; set; }
-        public List<OrderItem> OrderItems { get; set; }
+        public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public double Total { get
+            {
+                double total = 0;
+                foreach ( OrderItem item in OrderItems)
+                {
+                    total += item.TotalCost;
+                }
+                return total;
+            } }
+        [DisplayName("First Name")]
+        public string FirstName { get; set; }
+        [DisplayName("Last Name")]
+        public string LastName { get; set; }
+
+        [DisplayName("Customer Name")]
+        public string CustomerName { get { return LastName + ", " + FirstName; } }
+
+        [DisplayName("User Name")]
+        public string UserName { get; set; }
     }
 }

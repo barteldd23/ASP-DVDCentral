@@ -188,6 +188,7 @@ namespace DDB.DVDCentral.BL
             using (DVDCentralEntities dc = new DVDCentralEntities())
             {
                 (from e in dc.tblOrders
+                 join u in dc.tblUsers on e.UserId equals u.Id
                  where e.CustomerId == customerId || customerId == null
                  select new
                  {
@@ -195,7 +196,10 @@ namespace DDB.DVDCentral.BL
                      e.CustomerId,
                      e.OrderDate,
                      e.UserId,
-                     e.ShipDate
+                     e.ShipDate,
+                     FirstName = u.FirstName,
+                     LastName = u.LastName,
+                     UserName = u.UserName
                  }).Distinct().ToList()
                  .ForEach( order => list.Add(new Order
                  {
@@ -203,7 +207,12 @@ namespace DDB.DVDCentral.BL
                      CustomerId = order.CustomerId,
                      OrderDate =order.OrderDate,
                      UserId = order.UserId,
-                     ShipDate = order.ShipDate
+                     ShipDate = order.ShipDate,
+                     FirstName = order.FirstName,
+                     LastName = order.LastName,
+                     UserName = order.UserName,
+                     OrderItems = OrderItemManager.LoadByOrderId(order.Id)
+             
                  }));
             }
             return list;
