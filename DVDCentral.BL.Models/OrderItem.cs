@@ -17,6 +17,7 @@ namespace DVDCentral.BL.Models
 
         [DisplayName("Movie Title")]
         public string MovieTitle { get; set; }
+        public string MovieImagePath { get; set; }
 
         [DisplayName("Total Item Cost")]
         public double TotalCost

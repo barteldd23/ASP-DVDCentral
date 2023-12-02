@@ -9,27 +9,26 @@
         <table id="orderItems" class="table data-table col-md-8">
             <thead>
                 <tr>
-                    <th class="col-md-2"></th>
+                    <th></th>
                     <th>@Html.DisplayNameFor(Model => Model.OrderItems[0].MovieTitle)</th>
                     <th>@Html.DisplayNameFor(Model => Model.OrderItems[0].Cost)</th>
                     <th>@Html.DisplayNameFor(Model => Model.OrderItems[0].Quantity)</th>
                     <th>@Html.DisplayNameFor(Model => Model.OrderItems[0].TotalCost)</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
             @foreach (var item in Model.OrderItems)
             {
                 <tr>
-                        <td class="col-md-2">
-                        <img src="~/images/@item.MovieImagePath"
-                                 class="imagepropsmall"
-                                alt="@item.MovieTitle Poster"
-                                id="movieImage" />
-                    </td>
+                    <td>@item.Id</td>
                     <td>@item.MovieTitle</td>
                     <td>$@item.Cost</td>
                     <td>@item.Quantity</td>
                     <td>$@item.TotalCost</td>
+                    <td>
+                        <a class="btn btn-sm btn-primary" asp-route-id="@item.Id" asp-action="Remove" asp-controller="OrderItem">Delete</a>
+                    </td>
                 </tr>
             }
             </tbody>

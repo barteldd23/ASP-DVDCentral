@@ -169,7 +169,8 @@ namespace DDB.DVDCentral.BL
                      e.MovieId,
                      e.Quantity,
                      e.Cost,
-                     m.Title
+                     m.Title,
+                     m.ImagePath
                  }).ToList()
                  .ForEach( orderItem => list.Add(new OrderItem
                  {
@@ -178,7 +179,8 @@ namespace DDB.DVDCentral.BL
                      MovieId =orderItem.MovieId,
                      Quantity = orderItem.Quantity,
                      Cost = orderItem.Cost,
-                     MovieTitle = orderItem.Title
+                     MovieTitle = orderItem.Title,
+                     MovieImagePath = orderItem.ImagePath
                  }));
             }
             return list;
@@ -202,7 +204,8 @@ namespace DDB.DVDCentral.BL
                      e.MovieId,
                      e.Quantity,
                      e.Cost,
-                     m.Title
+                     m.Title,
+                     m.ImagePath
                  }).ToList()
                  .ForEach(orderItem => list.Add(new OrderItem
                  {
@@ -211,7 +214,8 @@ namespace DDB.DVDCentral.BL
                      MovieId = orderItem.MovieId,
                      Quantity = orderItem.Quantity,
                      Cost = orderItem.Cost,
-                     MovieTitle = orderItem.Title
+                     MovieTitle = orderItem.Title,
+                     MovieImagePath = orderItem.ImagePath
                  }));
             }
   
