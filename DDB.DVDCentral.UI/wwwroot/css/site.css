@@ -88,3 +88,11 @@ body {
     z-index: 2;
     cursor: pointer;
 }
+
+.col-odd{
+    background-color: lightgray;
+}
+
+.order-info-details ul{
+    list-style: none;
+}

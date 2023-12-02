@@ -149,7 +149,20 @@ namespace DDB.DVDCentral.BL
             {
                 using (DVDCentralEntities dc = new DVDCentralEntities())
                 {
-                    tblOrder entity = dc.tblOrders.Where(e => e.Id == id).FirstOrDefault();
+                    var entity = (from e in dc.tblOrders
+                                       join u in dc.tblUsers on e.UserId equals u.Id
+                                       where e.Id == id
+                                       select new
+                                       {
+                                           e.Id,
+                                           e.CustomerId,
+                                           e.OrderDate,
+                                           e.UserId,
+                                           e.ShipDate,
+                                           FirstName = u.FirstName,
+                                           LastName = u.LastName,
+                                           UserName = u.UserName
+                                       }).FirstOrDefault();
                     if (entity != null)
                     {
                         Order order = new Order
@@ -159,6 +172,9 @@ namespace DDB.DVDCentral.BL
                             OrderDate = entity.OrderDate,
                             UserId = entity.UserId,
                             ShipDate = entity.ShipDate,
+                            FirstName = entity.FirstName,
+                            LastName = entity.LastName,
+                            UserName = entity.UserName,
                             OrderItems = OrderItemManager.LoadByOrderId(entity.Id) // think this is correct.
                         };
 

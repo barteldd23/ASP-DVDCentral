@@ -12,13 +12,15 @@ namespace DVDCentral.BL.Models
     {
         public int Id { get; set; }
         public required int CustomerId { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public required DateTime OrderDate { get; set; }
         public required int UserId { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public  DateTime ShipDate { get; set; }
         public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
         [DisplayFormat(DataFormatString = "{0:C}")]
-        public double Total { get
+        public double SubTotal { get
             {
                 double total = 0;
                 foreach ( OrderItem item in OrderItems)
@@ -27,6 +29,13 @@ namespace DVDCentral.BL.Models
                 }
                 return total;
             } }
+
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public double Tax { get { return SubTotal * .055; } }
+
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public double Total { get { return SubTotal + Tax; } }
+
         [DisplayName("First Name")]
         public string FirstName { get; set; }
         [DisplayName("Last Name")]
