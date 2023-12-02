@@ -11,19 +11,13 @@ namespace DDB.DVDCentral.BL.Models
 {
     public class ShoppingCart
     {
-        public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+        public List<Movie> Items { get; set; } = new List<Movie>();
         public int NumItems { get; set; }
         public int TotalItems
         {
             get
             {
-                int count = 0;
-                foreach (OrderItem orderItem in OrderItems)
-                {
-                    count += orderItem.Quantity;
-                }
-
-                return count;
+                return Items.Count;
             }
         }
 
@@ -33,9 +27,9 @@ namespace DDB.DVDCentral.BL.Models
             get 
             {
                 double subTotal = 0;
-                foreach (OrderItem orderItem in OrderItems)
+                foreach (Movie item in Items)
                 {
-                    subTotal += orderItem.TotalCost;
+                    subTotal += item.Cost;
                 }
 
                 return subTotal;

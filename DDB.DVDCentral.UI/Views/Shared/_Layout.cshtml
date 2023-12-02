@@ -91,11 +91,12 @@
             </div>
 
             <div class="col-md-2 sidebar">
+                <div>
                 @await Component.InvokeAsync("Sidebar")
-            </div>
-
-            <div class="col-md-2 sidebar">
-                @await Component.InvokeAsync("ShoppingCart")
+                </div>
+                <div class="shopping-cart-div">
+                    @await Component.InvokeAsync("ShoppingCartComponent")
+                </div>
             </div>
 
             <div id="overlay" onclick="off()">

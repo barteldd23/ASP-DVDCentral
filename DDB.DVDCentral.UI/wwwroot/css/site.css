@@ -95,3 +95,7 @@ body {
 .order-info-details ul{
     list-style: none;
 }
+
+.shopping-cart-div a{
+    text-decoration: none;
+}
