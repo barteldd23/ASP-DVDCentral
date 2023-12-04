@@ -34,7 +34,11 @@ namespace DDB.DVDCentral.BL
                     orderItem.Id = entity.Id;
 
                     dc.tblOrderItems.Add(entity);
+                   // Movie movie = MovieManager.LoadById(orderItem.MovieId);
+                   // movie.InStkQty -= 1;
+                   // MovieManager.Update(movie, rollback);
                     results = dc.SaveChanges();
+
 
                     if (rollback) transaction.Rollback();
                 }

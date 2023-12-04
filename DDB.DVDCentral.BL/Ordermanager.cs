@@ -40,18 +40,21 @@ namespace DDB.DVDCentral.BL
                         tblOrderItem entity2;
                         for (int i = 0; i < order.OrderItems.Count; i++)
                         {
-                            entity2 = new tblOrderItem();
-                            entity2.Id = dc.tblOrderItems.Any() ? dc.tblOrderItems.Max(e => e.Id) + 1 + i : 1;
-                            entity2.OrderId = order.Id;
-                            //backfill the list OrderId
-                            order.OrderItems[i].OrderId = order.Id;
+                            OrderItemManager.Insert(order.OrderItems[i]);
 
-                            entity2.Quantity = order.OrderItems[i].Quantity;
-                            entity2.MovieId = order.OrderItems[i].MovieId;
-                            entity2.Cost = order.OrderItems[i].Cost;
 
-                            dc.tblOrderItems.Add(entity2);
-                            entity2 = null;
+                            //entity2 = new tblOrderItem();
+                            //entity2.Id = dc.tblOrderItems.Any() ? dc.tblOrderItems.Max(e => e.Id) + 1 + i : 1;
+                            //entity2.OrderId = order.Id;
+                            ////backfill the list OrderId
+                            //order.OrderItems[i].OrderId = order.Id;
+
+                            //entity2.Quantity = order.OrderItems[i].Quantity;
+                            //entity2.MovieId = order.OrderItems[i].MovieId;
+                            //entity2.Cost = order.OrderItems[i].Cost;
+
+                            //dc.tblOrderItems.Add(entity2);
+                            //entity2 = null;
                         }
                     }
                     

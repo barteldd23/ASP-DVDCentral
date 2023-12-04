@@ -12,6 +12,7 @@ namespace DDB.DVDCentral.UI.Controllers
         {
             ViewBag.Title = "Shopping Cart";
             cart = GetShoppingCart();
+            HttpContext.Session.SetObject("cart", cart);
             return View(cart);
         }
 
@@ -46,6 +47,17 @@ namespace DDB.DVDCentral.UI.Controllers
             ShoppingCartManager.Add(cart, movie);
             HttpContext.Session.SetObject("cart", cart);
             return RedirectToAction(nameof(Index), "Movie");
+        }
+
+        public IActionResult Checkout()
+        {
+            cart = GetShoppingCart();
+            string message = ShoppingCartManager.Checkout(cart);
+
+            //no more cart after we check out
+            HttpContext.Session.SetObject("cart", null);
+            ViewBag.Title = message;
+            return View();
         }
     }
 }
