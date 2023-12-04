@@ -53,6 +53,11 @@ namespace DDB.DVDCentral.BL
 
         public static string Checkout(ShoppingCart cart)
         {
+            if(cart.TotalItems <= 0) 
+            {
+                return "Put items in your Shopping Cart before Checking Out";
+            }
+
             // Make a new order
             // Set the Order fields as needed.
             Order order = new Order

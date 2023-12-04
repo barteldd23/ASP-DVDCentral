@@ -35,11 +35,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Cost)
                 </td>
-                <td>
+                <td id="@item.Id">
                     @Html.DisplayFor(modelItem => item.CartQty)
                 </td>
                 <td>
                     @Html.ActionLink("Remove", "Remove", new { id = item.Id })
+                    
                 </td>
             </tr>
         }

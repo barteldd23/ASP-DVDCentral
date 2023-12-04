@@ -9,11 +9,22 @@
         </dt>
         <dd>
             @{
-                int count = Model.NumItems;
+                int count = Model.TotalItems;
                 <input hidden id="cartcount" value="@count" />
                 <a asp-controller="ShoppingCart" asp-action="Index" id="cartcountdisp">@count.ToString() items</a>
                 <br />
-                <a asp-controller="ShoppingCart" asp-action="Checkout">Checkout</a>
+                if(count > 0)
+                {
+                    <a id="checkout-link" asp-controller="ShoppingCart" asp-action="Checkout">Checkout</a>
+                }
+                else
+                {
+                    <a id="checkout-link" display="none" asp-controller="ShoppingCart" asp-action="Checkout">Checkout</a>
+                }
+
+                    
+                
+
             }
         </dd>
     </dl>

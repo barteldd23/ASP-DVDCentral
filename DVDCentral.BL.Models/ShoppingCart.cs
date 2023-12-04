@@ -17,7 +17,12 @@ namespace DDB.DVDCentral.BL.Models
         {
             get
             {
-                return Items.Count;
+                int count = 0;
+                foreach (Movie item in Items)
+                {
+                    count += item.CartQty;
+                }
+                return count;
             }
         }
 
