@@ -32,9 +32,9 @@ namespace DDB.DVDCentral.UI.Controllers
             cart = GetShoppingCart();
 
             //do this way to prevent a hit on the DB!
-            //Declaration declaration = cart.Items.FirstOrDefault(item => item.Id == id);
+            Movie movie = cart.Items.FirstOrDefault(item => item.Id == id);
 
-            //ShoppingCartManager.Remove(cart, declaration);
+            ShoppingCartManager.Remove(cart, movie);
             HttpContext.Session.SetObject("cart", cart);
             return RedirectToAction(nameof(Index));
         }
