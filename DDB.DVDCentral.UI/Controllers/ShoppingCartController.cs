@@ -55,7 +55,11 @@ namespace DDB.DVDCentral.UI.Controllers
             string message = ShoppingCartManager.Checkout(cart);
 
             //no more cart after we check out
-            HttpContext.Session.SetObject("cart", null);
+            if(message == "Thank You For Your Order") 
+            {
+                HttpContext.Session.SetObject("cart", null);
+            }
+            
             ViewBag.Title = message;
             return View();
         }

@@ -33,5 +33,8 @@ namespace DVDCentral.BL.Models
         [DisplayName("Director")]
         public string DirectorFullName { get; set; }
 
+        [DisplayName("Number In Cart")]
+        public int CartQty { get; set; } = 0;
+
     }
 }

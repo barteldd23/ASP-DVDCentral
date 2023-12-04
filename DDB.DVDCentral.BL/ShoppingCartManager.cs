@@ -13,12 +13,42 @@ namespace DDB.DVDCentral.BL
     {
         public static void Add(ShoppingCart cart, Movie item)
         {
-            if (cart != null) { cart.Items.Add(item); }
+            if (cart != null) 
+            {
+                Movie cartMovie = cart.Items.Where(i => i.Id == item.Id).FirstOrDefault();
+                if(cartMovie != null)
+                {
+                    cart.Items.Where(i => i.Id == item.Id).FirstOrDefault().CartQty++;
+                }
+                else
+                {
+                    item.CartQty = 1;
+                    cart.Items.Add(item);
+                } 
+            }
         }
 
         public static void Remove(ShoppingCart cart, Movie item)
         {
-            if (cart != null) { cart.Items.Remove(item); }
+            if (cart != null) 
+            {
+                Movie cartMovie = cart.Items.Where(i => i.Id == item.Id).FirstOrDefault();
+                if (cartMovie != null)
+                {
+                    if(cartMovie.CartQty > 1)
+                    {
+                        cart.Items.Where(i => i.Id == item.Id).FirstOrDefault().CartQty--;
+                    }
+                    else
+                    {
+                        cart.Items.Remove(item);
+                    }
+                }
+                else
+                {
+                    
+                }
+            }
         }
 
         public static string Checkout(ShoppingCart cart)
@@ -43,17 +73,17 @@ namespace DDB.DVDCentral.BL
                 try
                 {
                     Movie inStkMovie = MovieManager.LoadById(item.Id);
-                    if (inStkMovie.InStkQty > 0)
+                    if (inStkMovie.InStkQty >= item.CartQty)
                     {
                         OrderItem orderItem = new OrderItem
                         {
                             MovieId = item.Id,
-                            Quantity = 1,
+                            Quantity = item.CartQty,
                             Cost = item.Cost,
                         };
                         order.OrderItems.Add(orderItem);
-                        inStkMovie.InStkQty -= 1;
-                        MovieManager.Update(inStkMovie);
+                       // inStkMovie.InStkQty -= 1;
+                       // MovieManager.Update(inStkMovie);
                     }
                     else
                     {

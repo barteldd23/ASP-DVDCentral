@@ -17,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.Items[0].Cost)
             </th>
             <th>
-                Quantity
+                @Html.DisplayNameFor(model => model.Items[0].CartQty)
             </th>
             <th></th>
         </tr>
@@ -36,7 +36,7 @@
                     @Html.DisplayFor(modelItem => item.Cost)
                 </td>
                 <td>
-                    1
+                    @Html.DisplayFor(modelItem => item.CartQty)
                 </td>
                 <td>
                     @Html.ActionLink("Remove", "Remove", new { id = item.Id })

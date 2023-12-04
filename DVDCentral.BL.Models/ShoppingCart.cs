@@ -29,7 +29,7 @@ namespace DDB.DVDCentral.BL.Models
                 double subTotal = 0;
                 foreach (Movie item in Items)
                 {
-                    subTotal += item.Cost;
+                    subTotal += item.Cost * item.CartQty;
                 }
 
                 return subTotal;
