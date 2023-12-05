@@ -40,6 +40,7 @@ namespace DDB.DVDCentral.BL
                         tblOrderItem entity2;
                         for (int i = 0; i < order.OrderItems.Count; i++)
                         {
+                            order.OrderItems[i].OrderId = order.Id;
                             OrderItemManager.Insert(order.OrderItems[i]);
 
 
