@@ -58,12 +58,17 @@
                 @Html.DisplayFor(model => model.DirectorFullName)
             </div>
         </div>
+        
     </div>
 
     <div class="card-footer">
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
         @Html.ActionLink("Details", "Details", new { id = Model.Id }) |
         @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+        <input class="btn btn-sm btn-primary"
+               type="button"
+               onclick="AddToCart(@Model.Id)"
+               value="Add to Cart" />
     </div>
 
 
