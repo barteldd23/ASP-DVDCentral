@@ -21,7 +21,12 @@
             @foreach (var item in Model.OrderItems)
             {
                 <tr>
-                    <td>@item.Id</td>
+                        <td class="col-md-2">
+                            <img src="~/images/@item.MovieImagePath"
+                                 class="imagepropsmall"
+                                 alt="@item.MovieTitle Poster"
+                                 id="movieImage" />
+                        </td>
                     <td>@item.MovieTitle</td>
                     <td>$@item.Cost</td>
                     <td>@item.Quantity</td>
