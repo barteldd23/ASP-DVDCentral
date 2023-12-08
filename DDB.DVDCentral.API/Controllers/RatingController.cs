@@ -31,7 +31,7 @@ namespace DDB.DVDCentral.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return BadRequest (ex.Message + ":" + ex.InnerException.Message);
             }
         }
 

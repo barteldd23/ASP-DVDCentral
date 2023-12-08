@@ -1,4 +1,7 @@
 ﻿using DDB.DVDCentral.BL.Models;
+using DDB.DVDCentral.UI.Models;
+using DDB.DVDCentral.UI.ViewModels;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DDB.DVDCentral.UI.Controllers
@@ -49,7 +52,34 @@ namespace DDB.DVDCentral.UI.Controllers
             return RedirectToAction(nameof(Index), "Movie");
         }
 
-        public IActionResult Checkout()
+        public IActionResult StartCheckout()
+        {
+            cart = GetShoppingCart();
+
+            if (cart.TotalItems == 0)
+            {
+                ViewBag.Error = "No Items in you Cart";
+                return View(nameof(Index), cart);
+            }
+                
+            
+            if (Authenticate.IsAuthenticated(HttpContext))
+            {
+                // MovieViewModel movieViewModel = null;
+                // movieViewModel = new MovieViewModel(id);
+                // HttpContext.Session.SetObject("genreids", movieViewModel.GenreIds);
+                ViewBag.Title = "Processs Order";
+                ViewBag.Subject = "Assign to a Customer";
+
+                return View();
+            }
+
+            else
+                return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
+            
+        }
+
+        public IActionResult FinalCheckout()
         {
             cart = GetShoppingCart();
             string message = ShoppingCartManager.Checkout(cart);

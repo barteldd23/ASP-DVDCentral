@@ -190,7 +190,13 @@ namespace DDB.DVDCentral.UI.Controllers
                 // Hit the API and send the content it needs to do the post
                 HttpResponseMessage response = client.PostAsync("Rating", content).Result;
 
-                return RedirectToAction(nameof(Get));
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Get));
+                    
+                }
+                throw new Exception(response.StatusCode.ToString());
+
             }
             catch (Exception ex)
             {
@@ -238,7 +244,15 @@ namespace DDB.DVDCentral.UI.Controllers
                 // Hit the API and send the content it needs to do the PUT for edit/update
                 HttpResponseMessage response = client.PutAsync("Rating/" + id, content).Result;
 
-                return RedirectToAction(nameof(Get));
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Get));
+
+                }
+                throw new Exception(response.StatusCode.ToString());
+                
+                
             }
             catch (Exception ex)
             {
@@ -278,7 +292,14 @@ namespace DDB.DVDCentral.UI.Controllers
                 HttpClient client = InitializeClient();
                 // Hit the API
                 HttpResponseMessage response = client.DeleteAsync("Rating/" + id).Result;
-                return RedirectToAction(nameof(Get));
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Get));
+
+                }
+                throw new Exception(response.StatusCode.ToString());
+                
 
             }
             catch (Exception ex)
