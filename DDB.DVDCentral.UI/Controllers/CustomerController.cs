@@ -29,9 +29,10 @@ namespace DDB.DVDCentral.UI.Controllers
             TempData["returnUrl"] = returnUrl;
 
             ViewBag.Title = "Create";
-            ViewBag.Subject = "Customer for " + HttpContext.Session.GetObject<User>("user").FullName;
+            
             if (Authenticate.IsAuthenticated(HttpContext))
             {
+                ViewBag.Subject = "Customer for " + HttpContext.Session.GetObject<User>("user").FullName;
                 ViewBag.userId = HttpContext.Session.GetObject<User>("user").Id;
                 return View();
             }

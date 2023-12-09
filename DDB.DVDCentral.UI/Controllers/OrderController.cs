@@ -12,7 +12,8 @@ namespace DDB.DVDCentral.UI.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Orders";
-            return View(OrderManager.Load());
+            List<Order> orders = OrderManager.Load();
+            return View(orders);
         }
 
         // GET: OrderController/Details/5

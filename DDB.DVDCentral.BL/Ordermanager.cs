@@ -155,6 +155,7 @@ namespace DDB.DVDCentral.BL
                 {
                     var entity = (from e in dc.tblOrders
                                        join u in dc.tblUsers on e.UserId equals u.Id
+                                       join c in dc.tblCustomers on u.Id equals c.UserId
                                        where e.Id == id
                                        select new
                                        {
@@ -163,8 +164,8 @@ namespace DDB.DVDCentral.BL
                                            e.OrderDate,
                                            e.UserId,
                                            e.ShipDate,
-                                           FirstName = u.FirstName,
-                                           LastName = u.LastName,
+                                           FirstName = c.FirstName,
+                                           LastName = c.LastName,
                                            UserName = u.UserName
                                        }).FirstOrDefault();
                     if (entity != null)
