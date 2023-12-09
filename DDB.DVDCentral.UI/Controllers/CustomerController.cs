@@ -26,6 +26,7 @@ namespace DDB.DVDCentral.UI.Controllers
         // GET: CustomerController/Create
         public ActionResult Create(string returnUrl = null)
         {
+            ViewData["returnUrl"] = returnUrl;
             TempData["returnUrl"] = returnUrl;
 
             ViewBag.Title = "Create";

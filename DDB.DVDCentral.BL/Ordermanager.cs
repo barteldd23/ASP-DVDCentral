@@ -210,7 +210,7 @@ namespace DDB.DVDCentral.BL
             {
                 (from e in dc.tblOrders
                  join u in dc.tblUsers on e.UserId equals u.Id
-                 join c in dc.tblCustomers on u.Id equals c.UserId
+                 join c in dc.tblCustomers on e.CustomerId equals c.Id
                  where e.CustomerId == customerId || customerId == null
                  select new
                  {

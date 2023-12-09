@@ -80,6 +80,8 @@ namespace DDB.DVDCentral.UI.Controllers
                 ViewBag.Title = "Processs Order";
                 ViewBag.Subject = "Assign to a Customer";
 
+                ViewData["ReturnUrl"] = UriHelper.GetDisplayUrl(HttpContext.Request);
+
                 return View(customerViewModel);
             }
 
@@ -111,10 +113,10 @@ namespace DDB.DVDCentral.UI.Controllers
             return View();
         }
 
-        public IActionResult CreateNewCustomer()
-        {
-            return RedirectToAction("Create", "Customer", new { returnUrl = "/ShoppingCart/Checkout" });
-            }
+        //public IActionResult CreateNewCustomer()
+        //{
+        //    return RedirectToAction("Create", "Customer", new { returnUrl = "/ShoppingCart/Checkout" });
+        //}
 
     }
 }
