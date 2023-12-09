@@ -71,6 +71,10 @@ namespace DDB.DVDCentral.UI.Controllers
                 customerViewModel = new CustomerViewModel();
                 customerViewModel.UserId = user.Id;
                 customerViewModel.Customers = CustomerManager.Load(user.Id);
+                if (customerViewModel.Customers.Count == 0) 
+                {
+                    customerViewModel.Customers = CustomerManager.Load();
+                }
                 customerViewModel.Cart = cart;
 
                 ViewBag.Title = "Processs Order";
@@ -106,6 +110,12 @@ namespace DDB.DVDCentral.UI.Controllers
             
             return View();
         }
+
+        public IActionResult CreateNewCustomer()
+        {
+            return RedirectToAction("Create", "Customer", new { returnUrl = "/ShoppingCart/Checkout" });
+            }
+
     }
 }
 

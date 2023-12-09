@@ -1,4 +1,5 @@
-﻿@model DDB.DVDCentral.UI.ViewModels.CustomerViewModel
+﻿@using Microsoft.AspNetCore.Http.Extensions
+@model DDB.DVDCentral.UI.ViewModels.CustomerViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -20,7 +21,7 @@
                 <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <a asp-action="NewCustomer" class="btn btn-primary mt-5">New Customer</a>
+                <a asp-action="CreateNewCustomer" class="btn btn-primary mt-5">New Customer</a>
                 <input type="submit" value="Checkout" class="btn btn-primary mt-5" />
             </div>
         </form>

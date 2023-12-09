@@ -24,12 +24,18 @@ namespace DDB.DVDCentral.UI.Controllers
         }
 
         // GET: CustomerController/Create
-        public ActionResult Create()
+        public ActionResult Create(string returnUrl = null)
         {
+            TempData["returnUrl"] = returnUrl;
+
             ViewBag.Title = "Create";
-            ViewBag.Subject = "Customer";
+            ViewBag.Subject = "Customer for " + HttpContext.Session.GetObject<User>("user").FullName;
             if (Authenticate.IsAuthenticated(HttpContext))
+            {
+                ViewBag.userId = HttpContext.Session.GetObject<User>("user").Id;
                 return View();
+            }
+                
             else
                 return RedirectToAction("Login", "User", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
         }
@@ -42,6 +48,9 @@ namespace DDB.DVDCentral.UI.Controllers
             try
             {
                 int result = CustomerManager.Insert(rating);
+
+                if (TempData["returnUrl"] != null)
+                    return Redirect(TempData["returnUrl"]?.ToString());
 
                 return RedirectToAction(nameof(Index));
             }
