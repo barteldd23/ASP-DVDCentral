@@ -51,7 +51,7 @@ namespace DDB.DVDCentral.BL
             }
         }
 
-        public static string Checkout(ShoppingCart cart)
+        public static string Checkout(ShoppingCart cart, int custId)
         {
             if(cart.TotalItems <= 0) 
             {
@@ -62,10 +62,10 @@ namespace DDB.DVDCentral.BL
             // Set the Order fields as needed.
             Order order = new Order
             {
-                CustomerId = 1,
+                CustomerId = custId,
                 OrderDate = DateTime.Now,
                 ShipDate = DateTime.Now.AddDays(3),
-                UserId = CustomerManager.LoadById(1).UserId
+                UserId = CustomerManager.LoadById(custId).UserId
             };
 
 

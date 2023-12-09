@@ -52,7 +52,7 @@ namespace DDB.DVDCentral.UI.Controllers
             return RedirectToAction(nameof(Index), "Movie");
         }
 
-        public IActionResult StartCheckout()
+        public IActionResult Checkout()
         {
             cart = GetShoppingCart();
 
@@ -65,13 +65,18 @@ namespace DDB.DVDCentral.UI.Controllers
             
             if (Authenticate.IsAuthenticated(HttpContext))
             {
-                // MovieViewModel movieViewModel = null;
-                // movieViewModel = new MovieViewModel(id);
-                // HttpContext.Session.SetObject("genreids", movieViewModel.GenreIds);
+                User user = HttpContext.Session.GetObject<User>("user");
+
+                CustomerViewModel customerViewModel = null;
+                customerViewModel = new CustomerViewModel();
+                customerViewModel.UserId = user.Id;
+                customerViewModel.Customers = CustomerManager.Load(user.Id);
+                customerViewModel.Cart = cart;
+
                 ViewBag.Title = "Processs Order";
                 ViewBag.Subject = "Assign to a Customer";
 
-                return View();
+                return View(customerViewModel);
             }
 
             else
@@ -79,18 +84,26 @@ namespace DDB.DVDCentral.UI.Controllers
             
         }
 
-        public IActionResult FinalCheckout()
+        [HttpPost]
+        public IActionResult FinishCheckout(CustomerViewModel customerViewModel)
         {
-            cart = GetShoppingCart();
-            string message = ShoppingCartManager.Checkout(cart);
+            customerViewModel.Cart = GetShoppingCart();
+            string message = ShoppingCartManager.Checkout(customerViewModel.Cart, customerViewModel.CustomerId);
 
             //no more cart after we check out
             if(message == "Thank You For Your Order") 
             {
+                ViewBag.chkOutMsg_1 = "Thank you";
+                ViewBag.chkOutMsg_2 = "Your order has been processed";
+                ViewBag.chkOutMsg_3 = "Your movie(s) will be shipped in 1-2 bussiness days";
                 HttpContext.Session.SetObject("cart", null);
             }
+            else
+            {
+                ViewBag.Error = message;
+            }
             
-            ViewBag.Title = message;
+            
             return View();
         }
     }

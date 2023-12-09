@@ -46,5 +46,11 @@ namespace DDB.DVDCentral.BL.Test
             int result = CustomerManager.Delete(2, true);
             Assert.AreEqual(1,result);
         }
+
+        [TestMethod]
+        public void LoadCustomersOfUserId()
+        {
+            Assert.AreEqual(1, CustomerManager.Load(25).Count);
+        }
     }
 }

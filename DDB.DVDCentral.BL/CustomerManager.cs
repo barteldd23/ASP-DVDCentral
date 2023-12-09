@@ -201,6 +201,42 @@ namespace DDB.DVDCentral.BL
             return list;
         }
 
+        // Overload to return all customers associated with this userId
+        public static List<Customer> Load(int userId)
+        {
+            List<Customer> list = new List<Customer>();
+
+            using (DVDCentralEntities dc = new DVDCentralEntities())
+            {
+                (from e in dc.tblCustomers where e.UserId == userId
+                 select new
+                 {
+                     e.Id,
+                     e.FirstName,
+                     e.LastName,
+                     e.Address,
+                     e.City,
+                     e.State,
+                     e.ZIP,
+                     e.Phone,
+                     e.UserId
+                 }).ToList()
+                 .ForEach(customer => list.Add(new Customer
+                 {
+                     Id = customer.Id,
+                     FirstName = customer.FirstName,
+                     LastName = customer.LastName,
+                     Address = customer.Address,
+                     City = customer.City,
+                     State = customer.State,
+                     ZIP = customer.ZIP,
+                     Phone = customer.Phone,
+                     UserId = customer.UserId
+                 }));
+            }
+            return list;
+        }
+
 
     }
 }

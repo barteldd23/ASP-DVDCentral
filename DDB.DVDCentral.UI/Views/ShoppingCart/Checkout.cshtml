@@ -1,6 +1,33 @@
-﻿
+﻿@model DDB.DVDCentral.UI.ViewModels.CustomerViewModel
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="FinishCheckout">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Select Customer</label>
+                <select asp-for="CustomerId" class="form-control"
+                        asp-items="@(new SelectList(Model.Customers, "Id", "FullName"))">
+                </select>
+                <span asp-validation-for="CustomerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input hidden asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a asp-action="NewCustomer" class="btn btn-primary mt-5">New Customer</a>
+                <input type="submit" value="Checkout" class="btn btn-primary mt-5" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to Cart</a>
+</div>
 
